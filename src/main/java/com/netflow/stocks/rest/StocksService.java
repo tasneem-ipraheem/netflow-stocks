@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class StocksService implements StocksApi {
 
     public Stock getStockBySymbol(String stockId) {
-        return new Stock(stockId);
+        return new Stock();
     }
 
 }

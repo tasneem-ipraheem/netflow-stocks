@@ -5,14 +5,23 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement (name = "stock")
 public class Stock {
 
-    private String id;
+    private String symbol;
 
-    public Stock(String id) {
-        this.id = id;
+    private String name;
+
+    public String getSymbol() {
+        return symbol;
     }
 
-    public String getId() {
-        return id;
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
