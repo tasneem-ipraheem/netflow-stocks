@@ -34,7 +34,7 @@ public class StocksControllerIT {
 
     @Before
     public void setUp() throws Exception {
-        this.base = new URL("http://localhost:" + port + "/stocks/AAPL");
+        this.base = new URL("http://localhost:" + port + "/stocks/PHAG.L");
         template = new TestRestTemplate();
     }
 

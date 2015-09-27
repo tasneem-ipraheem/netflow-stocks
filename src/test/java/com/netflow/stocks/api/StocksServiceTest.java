@@ -5,9 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
-import yahoofinance.YahooFinance;
-
-import java.io.IOException;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
