@@ -20,8 +20,8 @@ public class StocksServiceTest {
 
     @Test
     public void getStock() throws Exception {
-        Stock stock = stocksService.getStockBySymbol("AAPL");
-        assertThat(stock).isNotNull();
+        StockDto stockDto = stocksService.getStockBySymbol("AAPL");
+        assertThat(stockDto).isNotNull();
     }
 
 }

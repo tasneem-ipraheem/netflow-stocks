@@ -9,6 +9,7 @@ import javax.ws.rs.ApplicationPath;
 @ApplicationPath("/stocks")
 public class JerseyConfig extends ResourceConfig {
 
+
     public JerseyConfig() {
         register(StocksService.class);
     }

@@ -1,14 +1,15 @@
 package com.netflow.stocks.loader;
 
-import com.netflow.stocks.api.Stock;
+import com.netflow.stocks.api.StockDto;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
+import yahoofinance.Stock;
 
 import static org.fest.assertions.api.Assertions.*;
 
-public class YahooStockTransformerTest {
+public class YahooStockDtoTransformerTest {
 
     @InjectMocks
     private YahooStockTransformer transformer;
@@ -20,13 +21,13 @@ public class YahooStockTransformerTest {
 
     @Test
     public void testApply(){
-        Stock stock = transformer.apply(stubYahooStock());
-        assertThat(stock.getSymbol()).isEqualTo("AAPL");
-        assertThat(stock.getName()).isEqualTo("Apple Inc.");
+        StockDto stockDto = transformer.apply(stubYahooStock());
+        assertThat(stockDto.getSymbol()).isEqualTo("AAPL");
+        assertThat(stockDto.getName()).isEqualTo("Apple Inc.");
     }
 
-    private yahoofinance.Stock stubYahooStock(){
-        yahoofinance.Stock yahooStock = new yahoofinance.Stock("AAPL");
+    private Stock stubYahooStock(){
+        Stock yahooStock = new Stock("AAPL");
         yahooStock.setName("Apple Inc.");
         return yahooStock;
     }

@@ -11,6 +11,7 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import yahoofinance.Stock;
 import yahoofinance.YahooFinance;
 
 import java.io.IOException;
@@ -22,7 +23,7 @@ public class YahooStocksWrapperTest {
     @InjectMocks
     private YahooStocksWrapper yahooStocksWrapper;
     @Mock
-    private yahoofinance.Stock yahooStockMock;
+    private Stock yahooStockMock;
 
     @Before
     public void setUp() {
@@ -33,7 +34,7 @@ public class YahooStocksWrapperTest {
     @Test
     public void testGetStockBySymbol() throws Exception {
         Mockito.when(YahooFinance.get("AAPL")).thenReturn(yahooStockMock);
-        yahoofinance.Stock yahooStock = yahooStocksWrapper.getStockBySymbol("AAPL");
+        Stock yahooStock = yahooStocksWrapper.getStockBySymbol("AAPL");
         Assertions.assertThat(yahooStock).isSameAs(yahooStockMock);
     }
 

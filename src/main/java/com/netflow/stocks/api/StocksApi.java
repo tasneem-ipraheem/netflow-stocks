@@ -12,6 +12,6 @@ public interface StocksApi {
     @GET
     @Path("/{stockId}")
     @Produces(MediaType.APPLICATION_JSON)
-    Stock getStockBySymbol(@PathParam("stockId") String stockId);
+    StockDto getStockBySymbol(@PathParam("stockId") String stockId);
 
 }

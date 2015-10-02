@@ -3,7 +3,7 @@ package com.netflow.stocks.api;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement (name = "stock")
-public class Stock {
+public class StockDto {
 
     private String symbol;
 
