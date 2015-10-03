@@ -1,0 +1,1 @@
+ insert into stocks.netflow_stock (symbol, name, price) VALUES ("PHAL.G", "Gold", 10.01);
