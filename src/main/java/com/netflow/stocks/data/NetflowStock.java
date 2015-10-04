@@ -1,11 +1,11 @@
-package com.netflow.stocks.data.model;
+package com.netflow.stocks.data;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Entity(name = "Stock")
-public class StockEntity {
+@Entity
+public class NetflowStock {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
