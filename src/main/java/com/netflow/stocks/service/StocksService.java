@@ -14,10 +14,8 @@ public class StocksService implements StocksApi {
 
     @Autowired
     private NetflowStockRepository netflowStockRepository;
-
     @Autowired
     private NetflowStockLoader netflowStockLoader;
-
     @Autowired
     private Transformer transformer;
 

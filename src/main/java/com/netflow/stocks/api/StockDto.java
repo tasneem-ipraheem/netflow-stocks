@@ -2,7 +2,7 @@ package com.netflow.stocks.api;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @XmlRootElement (name = "stock")
 public class StockDto {
@@ -11,7 +11,7 @@ public class StockDto {
     private String symbol;
     private String name;
     private BigDecimal price;
-    private Date updated;
+    private LocalDateTime updated;
 
     public long getId() {
         return id;
@@ -45,11 +45,11 @@ public class StockDto {
         this.price = price;
     }
 
-    public Date getUpdated() {
+    public LocalDateTime getUpdated() {
         return updated;
     }
 
-    public void setUpdated(Date updated) {
+    public void setUpdated(LocalDateTime updated) {
         this.updated = updated;
     }
 }
