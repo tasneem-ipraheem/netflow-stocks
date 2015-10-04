@@ -1,5 +1,7 @@
-package com.netflow.stocks.loader;
+package com.netflow.stocks.service.load;
 
+import com.netflow.stocks.service.load.yahoo.YahooStocksException;
+import com.netflow.stocks.service.load.yahoo.YahooStocksWrapper;
 import org.fest.assertions.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,13 +40,13 @@ public class YahooStocksWrapperTest {
         Assertions.assertThat(yahooStock).isSameAs(yahooStockMock);
     }
 
-    @Test (expected = StocksLoaderException.class)
+    @Test (expected = YahooStocksException.class)
     public void testGetStockBySymbolWhenIOExceptionIsThrown() throws Exception {
         Mockito.when(YahooFinance.get("AAPL")).thenThrow(new IOException("Could not open socket"));
         yahooStocksWrapper.getStockBySymbol("AAPL");
     }
 
-    @Test (expected = StocksLoaderException.class)
+    @Test (expected = YahooStocksException.class)
     public void testGetStockBySymbolWhenRuntimeIsThrown() throws Exception {
         Mockito.when(YahooFinance.get("AAPL")).thenThrow(new RuntimeException("Third party issue"));
         yahooStocksWrapper.getStockBySymbol("AAPL");

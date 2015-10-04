@@ -1,6 +1,6 @@
 package com.netflow.stocks.api;
 
-import com.netflow.stocks.rest.StocksService;
+import com.netflow.stocks.service.StocksService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;

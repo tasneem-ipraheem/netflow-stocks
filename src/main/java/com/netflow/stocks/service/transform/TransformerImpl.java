@@ -1,8 +1,8 @@
-package com.netflow.stocks.rest.transform;
+package com.netflow.stocks.service.transform;
 
 import com.netflow.stocks.api.StockDto;
 import com.netflow.stocks.data.NetflowStock;
-import com.netflow.stocks.rest.transform.function.StockEntityToDtoTransformer;
+import com.netflow.stocks.service.transform.function.StockEntityToDtoTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

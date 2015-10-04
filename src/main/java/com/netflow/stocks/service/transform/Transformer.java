@@ -1,4 +1,4 @@
-package com.netflow.stocks.rest.transform;
+package com.netflow.stocks.service.transform;
 
 import com.netflow.stocks.api.StockDto;
 import com.netflow.stocks.data.NetflowStock;

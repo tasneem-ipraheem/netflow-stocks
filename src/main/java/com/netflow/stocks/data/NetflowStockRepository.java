@@ -1,9 +1,9 @@
 package com.netflow.stocks.data;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface NetflowStockRepository extends CrudRepository<NetflowStock, Long> {
+public interface NetflowStockRepository extends JpaRepository<NetflowStock, Long> {
 
-    public NetflowStock findOneBySymbol(String symbol);
+    NetflowStock findOneBySymbol(String symbol);
 
 }
