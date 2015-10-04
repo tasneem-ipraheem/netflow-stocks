@@ -16,7 +16,7 @@ in ```netflow-stocks.properties``` file in service home directory. Properties fi
 
 ## Running application & Configuration
 ### Running
-Run ```mvn spring-boot:run -Dnetflow.stocks.home={path/to/home/directory}``` maven command <br/><br/>
+Run ```mvn spring-boot:run -Dnetflow.stocks.home=[path/to/home/directory]``` maven command <br/>
 Sample: ```mvn spring-boot:run -Dnetflow.stocks.home=D:\projects\netflow\netflow-stocks```
 
 ### Remote debugging
