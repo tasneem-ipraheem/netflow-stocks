@@ -29,14 +29,26 @@ public class NetflowStockLoaderTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        when(yahooStocksWrapper.getStockBySymbol("AAPL")).thenReturn(stock);
-        when(yahooStockTransformer.apply(stock)).thenReturn(netflowStock);
     }
 
     @Test
     public void testGetNetflowStock() throws Exception {
+
+        when(yahooStocksWrapper.getStockBySymbol("AAPL")).thenReturn(stock);
+        when(yahooStockTransformer.apply(stock)).thenReturn(netflowStock);
+
         NetflowStock resolvedNetflowStock = netflowStockLoader.getNetflowStock("AAPL");
+
         assertThat(resolvedNetflowStock).isSameAs(netflowStock);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testGetNetflowStockWhenNameIsNotKnown() throws Exception {
+
+        when(yahooStocksWrapper.getStockBySymbol("UNK")).thenReturn(stock);
+        when(stock.getName()).thenReturn("N/A");
+
+        netflowStockLoader.getNetflowStock("UNK");
     }
 
 }

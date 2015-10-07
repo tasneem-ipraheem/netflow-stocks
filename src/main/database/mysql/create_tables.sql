@@ -3,5 +3,6 @@ CREATE TABLE netflow_stock (
   symbol  VARCHAR(10)    NOT NULL,
   name    VARCHAR(255)   NOT NULL,
   price   DECIMAL(10, 2) NOT NULL,
-  updated TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP
+  updated TIMESTAMP      NOT NULL,
+  CONSTRAINT uc_symbol UNIQUE (symbol)
 );

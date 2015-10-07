@@ -3,5 +3,20 @@
   "symbol": "MOCK",
   "name": "Mocked name Inc.",
   "price": 13.98,
-  "updated": null
+  "updated": {
+    "month": "DECEMBER",
+    "year": 2015,
+    "dayOfMonth": 31,
+    "dayOfWeek": "THURSDAY",
+    "dayOfYear": 365,
+    "monthValue": 12,
+    "hour": 23,
+    "minute": 55,
+    "nano": 0,
+    "second": 55,
+    "chronology": {
+      "id": "ISO",
+      "calendarType": "iso8601"
+    }
+  }
 }

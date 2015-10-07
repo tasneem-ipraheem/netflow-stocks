@@ -1,6 +1,7 @@
 package com.netflow.stocks;
 
 import com.netflow.stocks.service.load.yahoo.YahooStocksWrapper;
+import com.netflow.stocks.service.util.DateUtils;
 import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -20,11 +21,20 @@ public class BaseIntegrationTest {
 
     @Configuration
     public static class TestConfiguration {
+
+
         @Bean
         @Primary
         public YahooStocksWrapper getYahooStocksWrapper() {
             return mock(YahooStocksWrapper.class);
         }
+
+        @Bean
+        @Primary
+        public DateUtils getDateUtils() {
+            return mock(DateUtils.class);
+        }
+
     }
 
     /**

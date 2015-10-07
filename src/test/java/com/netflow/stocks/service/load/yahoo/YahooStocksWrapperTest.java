@@ -44,16 +44,6 @@ public class YahooStocksWrapperTest {
     }
 
     @Test(expected = YahooStocksException.class)
-    public void testGetStockBySymbolWhenNameIsNotKnown() throws Exception {
-
-        Mockito.when(YahooFinance.get("AAPL")).thenReturn(yahooStockMock);
-        Mockito.when(yahooStockMock.getName()).thenReturn("N/A");
-
-        yahooStocksWrapper.getStockBySymbol("AAPL");
-
-    }
-
-    @Test(expected = YahooStocksException.class)
     public void testGetStockBySymbolWhenIOExceptionIsThrown() throws Exception {
         Mockito.when(YahooFinance.get("AAPL")).thenThrow(new IOException("Could not open socket"));
         yahooStocksWrapper.getStockBySymbol("AAPL");
