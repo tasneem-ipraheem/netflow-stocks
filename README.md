@@ -11,14 +11,12 @@ Stock information can be retrieved using ```[HOST]:8080/stocks/[STOCK_SYMBOL]```
 ## Running application & Configuration
 
 ### Running
-Run ```mvn spring-boot:run``` maven command to start the application with in memory database.
-Default datasource (H2 in memory database) configuration can be overridden by external application properties file using 
-```-Dspring.config.location=file:[path_to_properties_file]```. 
+Run ```mvn spring-boot:run``` maven command to start the application with in memory database. 
+Default datasource (H2 in memory database) configuration can be overridden by external application properties file using ```-Dspring.config.location=file:[path_to_properties_file]```. 
 
 ### Remote debugging
 Add property ```-Drun.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005```
 
 ### Externalizing storage
  * **Database creation scripts** can be found under ```/src/main/database``` folder in sources.  
- * **External configuration file** template providing datasource configuration example can be found in 
-```main/test/resources/config/netflow-stocks.properties.template```. 
+ * **External configuration file** template providing datasource configuration example can be found in ```main/test/resources/config/netflow-stocks.properties.template```. 
