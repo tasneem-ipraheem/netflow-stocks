@@ -37,7 +37,6 @@ import static org.mockito.Mockito.*;
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @IntegrationTest({"server.port=0"})
-@TestPropertySource(value = "classpath:config/netflow-stocks.properties")
 @SqlGroup({
         @Sql(scripts = "file:src/main/database/mysql/drop_tables.sql"),
         @Sql(scripts = "file:src/main/database/mysql/create_tables.sql"),
