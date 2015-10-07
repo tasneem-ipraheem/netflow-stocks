@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @Configuration
 @ComponentScan
 @EnableJpaRepositories("com.netflow.stocks")
-@PropertySource(value = "file:${netflow.stocks.home}\\netflow-stocks.properties")
+@PropertySource(value = "file:${netflow.stocks.home}\\netflow-stocks.properties", ignoreResourceNotFound = true)
 public class Application {
 
     public static void main(String[] args) {

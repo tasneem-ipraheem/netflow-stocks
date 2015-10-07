@@ -1,0 +1,22 @@
+{
+  "id": 2,
+  "symbol": "PHAG.L",
+  "name": "ETFS METAL SECURITIES LD ETFS P",
+  "price": 15.32,
+  "updated": {
+    "month": "JANUARY",
+    "year": 2016,
+    "dayOfMonth": 30,
+    "dayOfWeek": "SATURDAY",
+    "dayOfYear": 30,
+    "monthValue": 1,
+    "hour": 0,
+    "minute": 0,
+    "nano": 0,
+    "second": 1,
+    "chronology": {
+      "id": "ISO",
+      "calendarType": "iso8601"
+    }
+  }
+}

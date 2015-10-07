@@ -1,5 +1,3 @@
-DROP TABLE netflow_stock;
-
 CREATE TABLE netflow_stock (
   id      MEDIUMINT AUTO_INCREMENT PRIMARY KEY,
   symbol  VARCHAR(10)    NOT NULL,
