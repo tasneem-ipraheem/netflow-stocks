@@ -9,6 +9,8 @@ import com.netflow.stocks.service.transform.Transformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class StocksService implements StocksApi {
 
@@ -19,11 +21,12 @@ public class StocksService implements StocksApi {
     @Autowired
     private Transformer transformer;
 
+    @Transactional
     public StockDto getStockBySymbol(String symbol) {
         NetflowStock netflowStock = netflowStockRepository.findOneBySymbol(symbol);
         if (netflowStock == null) {
             netflowStock = netflowStockLoader.getNetflowStock(symbol);
-            netflowStock = netflowStockRepository.saveAndFlush(netflowStock);
+            netflowStock = netflowStockRepository.save(netflowStock);
         }
         StockDto stockDto = transformer.entityToDto(netflowStock);
         return stockDto;
