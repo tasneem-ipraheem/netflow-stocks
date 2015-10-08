@@ -17,6 +17,9 @@ Default datasource (H2 in memory database) configuration can be overridden by ex
 ### Remote debugging
 Add property ```-Drun.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005```
 
+### Proxy settings
+Add properties ```-Dhttp.proxyHost=[HOST] -Dhttp.proxyPort=[PORT]```
+
 ### Externalizing storage
  * **Database creation scripts** can be found under ```/src/main/database``` folder in sources.  
  * **External configuration file** template providing datasource configuration example can be found in ```main/test/resources/config/netflow-stocks.properties.template```. 
