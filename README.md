@@ -15,7 +15,7 @@ Run ```mvn spring-boot:run``` maven command to start the application with in mem
 Default datasource (H2 in memory database) configuration can be overridden by external application properties file using ```-Dspring.config.location=file:[path_to_properties_file]```. 
 
 ### Remote debugging
-Add property ```-Drun.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005```
+Add property ```-Drun.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"```
 
 ### Proxy settings
 Add properties ```-Dhttp.proxyHost=[HOST] -Dhttp.proxyPort=[PORT]```
@@ -23,3 +23,6 @@ Add properties ```-Dhttp.proxyHost=[HOST] -Dhttp.proxyPort=[PORT]```
 ### Externalizing storage
  * **Database creation scripts** can be found under ```/src/main/database``` folder in sources.  
  * **External configuration file** template providing datasource configuration example can be found in ```main/test/resources/config/netflow-stocks.properties.template```. 
+
+### Dynamic class reloading
+When running application from sources, IDE recompiled classes will be automatically re-loaded by auto-configured 'SpringLoaded'. 
