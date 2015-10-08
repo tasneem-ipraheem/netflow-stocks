@@ -25,4 +25,5 @@ Add properties ```-Dhttp.proxyHost=[HOST] -Dhttp.proxyPort=[PORT]```
  * **External configuration file** template providing datasource configuration example can be found in ```main/test/resources/config/netflow-stocks.properties.template```. 
 
 ### Dynamic class reloading
+To enable use ```-Pspring-loaded``` profile when starting application from maven. 
 When running application from sources, IDE recompiled classes will be automatically re-loaded by auto-configured 'SpringLoaded'. 
