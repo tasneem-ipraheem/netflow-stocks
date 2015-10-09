@@ -27,7 +27,7 @@ public class ScheduledUpdater {
     @Autowired
     private NetflowStockLoader netflowStockLoader;
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(cron = "${netflow.stocks.scheduler.cron}")
     public void updateStocksData() {
 
         List<NetflowStock> netflowStocks = netflowStockRepository.findAll();
