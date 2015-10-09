@@ -19,7 +19,7 @@ import org.springframework.web.client.RestTemplate;
 public class Application {
 
     @Bean
-    public RestTemplate getRestTemplate(){
+    public RestTemplate yahooRestTemplate(){
         return new RestTemplate();
     }
 

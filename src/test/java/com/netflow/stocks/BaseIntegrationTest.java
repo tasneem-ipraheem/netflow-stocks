@@ -1,12 +1,12 @@
 package com.netflow.stocks;
 
-import com.netflow.stocks.service.load.yahoo.YahooStocksWrapper;
 import com.netflow.stocks.service.util.DateUtils;
 import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.web.client.RestTemplate;
 
 import javax.sql.DataSource;
 
@@ -25,8 +25,8 @@ public class BaseIntegrationTest {
 
         @Bean
         @Primary
-        public YahooStocksWrapper getYahooStocksWrapper() {
-            return mock(YahooStocksWrapper.class);
+        public RestTemplate getYahooRestTemplate(){
+            return mock(RestTemplate.class);
         }
 
         @Bean

@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import com.google.common.io.Files;
 import com.netflow.stocks.Application;
 import com.netflow.stocks.BaseIntegrationTest;
-import com.netflow.stocks.service.load.yahoo.YahooStocksWrapper;
+import com.netflow.stocks.service.load.yahoo.YahooAsset;
 import com.netflow.stocks.service.util.DateUtils;
 import com.netflow.stocks.stubs.YahooStockStubs;
 import org.junit.Before;
@@ -44,7 +44,7 @@ import static org.mockito.Mockito.*;
 public class StocksApiIT extends BaseIntegrationTest {
 
     @Autowired
-    private YahooStocksWrapper yahooStocksWrapper;
+    private RestTemplate yahooRestTemplate;
 
     @Autowired
     private DateUtils dateUtils;
@@ -85,8 +85,8 @@ public class StocksApiIT extends BaseIntegrationTest {
 
         Resource expectedResponse = new ClassPathResource("responses/mocked_01.json");
         String expectedResponseString = Files.toString(expectedResponse.getFile(), Charset.defaultCharset());
-        when(yahooStocksWrapper.getStockBySymbol("MOCK")).thenReturn(YahooStockStubs.stubYahooAsset("MOCK"));
-
+        when(yahooRestTemplate.getForObject(any(String.class), eq(YahooAsset.class)))
+                .thenReturn(YahooStockStubs.stubYahooAsset("MOCK"));
 
         base = new URL("http://localhost:" + port + "/stocks/MOCK");
         ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
@@ -101,7 +101,8 @@ public class StocksApiIT extends BaseIntegrationTest {
     @Test
     public void getUnknownStock() throws Exception {
 
-        when(yahooStocksWrapper.getStockBySymbol("UNK")).thenReturn(YahooStockStubs.stubUnknownYahooAsset("UNK"));
+        when(yahooRestTemplate.getForObject(any(String.class), eq(YahooAsset.class)))
+                .thenReturn(YahooStockStubs.stubUnknownYahooAsset("UNK"));
 
         base = new URL("http://localhost:" + port + "/stocks/UNK");
         ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);

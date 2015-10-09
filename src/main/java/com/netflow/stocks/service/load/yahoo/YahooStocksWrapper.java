@@ -10,7 +10,7 @@ import javax.annotation.PostConstruct;
 public class YahooStocksWrapper {
 
     @Autowired
-    private RestTemplate restTemplate;
+    private RestTemplate yahooRestTemplate;
     private String queryTemplate;
 
     @PostConstruct
@@ -30,7 +30,7 @@ public class YahooStocksWrapper {
     public YahooAsset getStockBySymbol(String stockSymbol) {
 
         String query = String.format(queryTemplate, stockSymbol);
-        YahooAsset yahooAsset = restTemplate.getForObject(query, YahooAsset.class);
+        YahooAsset yahooAsset = yahooRestTemplate.getForObject(query, YahooAsset.class);
 //            Object o = restTemplate.getForEntity(query, Object.class);
 //            Quote quote = restTemplate.getForObject("http://gturnquist-quoters.cfapps.io/api/random", Quote.class);
 
