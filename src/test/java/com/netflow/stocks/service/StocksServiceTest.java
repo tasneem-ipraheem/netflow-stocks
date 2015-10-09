@@ -27,12 +27,12 @@ public class StocksServiceTest {
     @Mock
     private NetflowStock netflowStock;
     @Mock
-    private StockDto stockDto;
+    private StockDto stockDtoMock;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        when(transformer.entityToDto(netflowStock)).thenReturn(stockDto);
+        when(transformer.entityToDto(netflowStock)).thenReturn(stockDtoMock);
     }
 
     @Test
@@ -47,11 +47,11 @@ public class StocksServiceTest {
 
         when(netflowStockRepository.findOneBySymbol("AAPL")).thenReturn(null);
         when(netflowStockLoader.getNetflowStock("AAPL")).thenReturn(netflowStock);
+        when(netflowStockRepository.save(netflowStock)).thenReturn(netflowStock);
 
         StockDto stockDto = stocksService.getStockBySymbol("AAPL");
 
-        assertThat(stockDto).isSameAs(stockDto);
-        verify(netflowStockRepository).saveAndFlush(netflowStock);
+        assertThat(stockDto).isSameAs(stockDtoMock);
     }
 
 

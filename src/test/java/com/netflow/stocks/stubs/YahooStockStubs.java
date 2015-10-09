@@ -1,7 +1,6 @@
 package com.netflow.stocks.stubs;
 
-import yahoofinance.Stock;
-import yahoofinance.quotes.stock.StockQuote;
+import com.netflow.stocks.service.load.yahoo.YahooAsset;
 
 import java.math.BigDecimal;
 
@@ -10,24 +9,20 @@ public class YahooStockStubs {
     private YahooStockStubs() {
     }
 
-    public static Stock stubStock(String symbol){
-        Stock stock = new Stock(symbol);
+    public static YahooAsset stubYahooAsset(String symbol){
+        YahooAsset stock = new YahooAsset();
         stock.setName("Mocked name Inc.");
-        stock.setQuote(stubStockQuote(symbol, new BigDecimal("13.98")));
+        stock.setSymbol(symbol);
+        stock.setLastTradePriceOnly("13.98");
         return stock;
     }
 
-    public static Stock stubUnknownStock(String symbol){
-        Stock stock = new Stock(symbol);
+    public static YahooAsset stubUnknownYahooAsset(String symbol){
+        YahooAsset stock = new YahooAsset();
         stock.setName("N/A");
-        stock.setQuote(stubStockQuote(symbol, BigDecimal.ZERO));
+        stock.setSymbol(symbol);
+        stock.setLastTradePriceOnly("13.98");
         return stock;
-    }
-
-    private static StockQuote stubStockQuote(String symbol, BigDecimal price){
-        StockQuote stockQuote = new StockQuote(symbol);
-        stockQuote.setPrice(price);
-        return stockQuote;
     }
 
 }

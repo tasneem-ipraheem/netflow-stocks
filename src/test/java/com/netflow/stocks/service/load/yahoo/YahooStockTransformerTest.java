@@ -8,8 +8,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import yahoofinance.Stock;
-import yahoofinance.quotes.stock.StockQuote;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -31,20 +29,19 @@ public class YahooStockTransformerTest {
 
     @Test
     public void testApply() {
-        NetflowStock netflowStock = transformer.apply(stubYahooStock());
+        NetflowStock netflowStock = transformer.apply(stubYahooAsset());
         assertThat(netflowStock.getSymbol()).isEqualTo("AAPL");
         assertThat(netflowStock.getName()).isEqualTo("Apple Inc.");
         assertThat(netflowStock.getPrice()).isEqualTo(new BigDecimal("100.02"));
         assertThat(netflowStock.getUpdated()).isEqualTo(LocalDateTime.of(2016, 1, 1, 1, 1, 1));
     }
 
-    private Stock stubYahooStock() {
-        Stock yahooStock = new Stock("AAPL");
-        yahooStock.setName("Apple Inc.");
-        StockQuote stockQuote = new StockQuote("AAPL");
-        stockQuote.setPrice(new BigDecimal("100.02"));
-        yahooStock.setQuote(stockQuote);
-        return yahooStock;
+    private YahooAsset stubYahooAsset() {
+        YahooAsset yahooAsset = new YahooAsset();
+        yahooAsset.setSymbol("AAPL");
+        yahooAsset.setName("Apple Inc.");
+        yahooAsset.setLastTradePriceOnly("100.02");
+        return yahooAsset;
     }
 
 

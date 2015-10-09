@@ -1,22 +1,40 @@
 package com.netflow.stocks.service.load.yahoo;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import yahoofinance.Stock;
-import yahoofinance.YahooFinance;
+import org.springframework.web.client.RestTemplate;
+
+import javax.annotation.PostConstruct;
 
 @Service
 public class YahooStocksWrapper {
 
-    public Stock getStockBySymbol(String stockSymbol) {
+    @Autowired
+    private RestTemplate restTemplate;
+    private String queryTemplate;
 
-        try {
+    @PostConstruct
+    public void postConstruct() {
 
-            Stock stock = YahooFinance.get(stockSymbol);
-            return stock;
+        StringBuilder sb = new StringBuilder();
+        sb.append("https://query.yahooapis.com/v1/public/yql?q=");
+        sb.append("select symbol, Name, Currency, LastTradePriceOnly from yahoo.finance.quotes where symbol = \"%s\"");
+        sb.append("&format=json");
+        sb.append("&diagnostics=true");
+        sb.append("&env=store://datatables.org/alltableswithkeys");
 
-        } catch (Exception e) {
-            throw new YahooStocksException("Could not load '" + stockSymbol + "' stock", e);
-        }
+        queryTemplate = sb.toString();
+
+    }
+
+    public YahooAsset getStockBySymbol(String stockSymbol) {
+
+        String query = String.format(queryTemplate, stockSymbol);
+        YahooAsset yahooAsset = restTemplate.getForObject(query, YahooAsset.class);
+//            Object o = restTemplate.getForEntity(query, Object.class);
+//            Quote quote = restTemplate.getForObject("http://gturnquist-quoters.cfapps.io/api/random", Quote.class);
+
+        return yahooAsset;
 
     }
 }

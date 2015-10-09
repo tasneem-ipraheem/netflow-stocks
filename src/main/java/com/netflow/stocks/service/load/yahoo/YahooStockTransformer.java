@@ -5,20 +5,21 @@ import com.netflow.stocks.data.NetflowStock;
 import com.netflow.stocks.service.util.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import yahoofinance.Stock;
+
+import java.math.BigDecimal;
 
 @Component
-public class YahooStockTransformer implements Function<Stock, NetflowStock> {
+public class YahooStockTransformer implements Function<YahooAsset, NetflowStock> {
 
     @Autowired
     private DateUtils dateUtils;
 
     @Override
-    public NetflowStock apply(Stock yahooStock) {
+    public NetflowStock apply(YahooAsset yahooAsset) {
         NetflowStock netflowStock = new NetflowStock();
-        netflowStock.setSymbol(yahooStock.getSymbol());
-        netflowStock.setName(yahooStock.getName());
-        netflowStock.setPrice(yahooStock.getQuote().getPrice());
+        netflowStock.setSymbol(yahooAsset.getSymbol());
+        netflowStock.setName(yahooAsset.getName());
+        netflowStock.setPrice(new BigDecimal(yahooAsset.getLastTradePriceOnly()));
         netflowStock.setUpdated(dateUtils.now());
         return netflowStock;
     }

@@ -23,7 +23,6 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -86,7 +85,7 @@ public class StocksApiIT extends BaseIntegrationTest {
 
         Resource expectedResponse = new ClassPathResource("responses/mocked_01.json");
         String expectedResponseString = Files.toString(expectedResponse.getFile(), Charset.defaultCharset());
-        when(yahooStocksWrapper.getStockBySymbol("MOCK")).thenReturn(YahooStockStubs.stubStock("MOCK"));
+        when(yahooStocksWrapper.getStockBySymbol("MOCK")).thenReturn(YahooStockStubs.stubYahooAsset("MOCK"));
 
 
         base = new URL("http://localhost:" + port + "/stocks/MOCK");
@@ -102,7 +101,7 @@ public class StocksApiIT extends BaseIntegrationTest {
     @Test
     public void getUnknownStock() throws Exception {
 
-        when(yahooStocksWrapper.getStockBySymbol("UNK")).thenReturn(YahooStockStubs.stubUnknownStock("UNK"));
+        when(yahooStocksWrapper.getStockBySymbol("UNK")).thenReturn(YahooStockStubs.stubUnknownYahooAsset("UNK"));
 
         base = new URL("http://localhost:" + port + "/stocks/UNK");
         ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);

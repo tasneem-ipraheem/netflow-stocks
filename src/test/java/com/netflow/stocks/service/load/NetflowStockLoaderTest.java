@@ -1,6 +1,7 @@
 package com.netflow.stocks.service.load;
 
 import com.netflow.stocks.data.NetflowStock;
+import com.netflow.stocks.service.load.yahoo.YahooAsset;
 import com.netflow.stocks.service.load.yahoo.YahooStockTransformer;
 import com.netflow.stocks.service.load.yahoo.YahooStocksWrapper;
 import org.junit.Before;
@@ -8,7 +9,6 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import yahoofinance.Stock;
 
 import static org.fest.assertions.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -22,7 +22,7 @@ public class NetflowStockLoaderTest {
     @Mock
     private YahooStockTransformer yahooStockTransformer;
     @Mock
-    private Stock stock;
+    private YahooAsset yahooAsset;
     @Mock
     private NetflowStock netflowStock;
 
@@ -34,8 +34,8 @@ public class NetflowStockLoaderTest {
     @Test
     public void testGetNetflowStock() throws Exception {
 
-        when(yahooStocksWrapper.getStockBySymbol("AAPL")).thenReturn(stock);
-        when(yahooStockTransformer.apply(stock)).thenReturn(netflowStock);
+        when(yahooStocksWrapper.getStockBySymbol("AAPL")).thenReturn(yahooAsset);
+        when(yahooStockTransformer.apply(yahooAsset)).thenReturn(netflowStock);
 
         NetflowStock resolvedNetflowStock = netflowStockLoader.getNetflowStock("AAPL");
 
@@ -45,8 +45,8 @@ public class NetflowStockLoaderTest {
     @Test(expected = IllegalStateException.class)
     public void testGetNetflowStockWhenNameIsNotKnown() throws Exception {
 
-        when(yahooStocksWrapper.getStockBySymbol("UNK")).thenReturn(stock);
-        when(stock.getName()).thenReturn("N/A");
+        when(yahooStocksWrapper.getStockBySymbol("UNK")).thenReturn(yahooAsset);
+        when(yahooAsset.getName()).thenReturn("N/A");
 
         netflowStockLoader.getNetflowStock("UNK");
     }
