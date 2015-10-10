@@ -1,8 +1,6 @@
 package com.netflow.stocks.service.load;
 
 import com.netflow.stocks.data.NetflowStock;
-import com.netflow.stocks.service.load.yahoo.YahooAsset;
-import com.netflow.stocks.service.load.yahoo.YahooStockTransformer;
 import com.netflow.stocks.service.load.yahoo.YahooStocksWrapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,11 +18,7 @@ public class NetflowStockLoaderTest {
     @Mock
     private YahooStocksWrapper yahooStocksWrapper;
     @Mock
-    private YahooStockTransformer yahooStockTransformer;
-    @Mock
-    private YahooAsset yahooAsset;
-    @Mock
-    private NetflowStock netflowStock;
+    private NetflowStock netflowStockMock;
 
     @Before
     public void setUp() {
@@ -34,21 +28,12 @@ public class NetflowStockLoaderTest {
     @Test
     public void testGetNetflowStock() throws Exception {
 
-        when(yahooStocksWrapper.getStockBySymbol("AAPL")).thenReturn(yahooAsset);
-        when(yahooStockTransformer.apply(yahooAsset)).thenReturn(netflowStock);
+        when(yahooStocksWrapper.getStockBySymbol("AAPL")).thenReturn(netflowStockMock);
 
         NetflowStock resolvedNetflowStock = netflowStockLoader.getNetflowStock("AAPL");
 
-        assertThat(resolvedNetflowStock).isSameAs(netflowStock);
+        assertThat(resolvedNetflowStock).isSameAs(netflowStockMock);
     }
 
-    @Test(expected = IllegalStateException.class)
-    public void testGetNetflowStockWhenNameIsNotKnown() throws Exception {
-
-        when(yahooStocksWrapper.getStockBySymbol("UNK")).thenReturn(yahooAsset);
-        when(yahooAsset.getName()).thenReturn("N/A");
-
-        netflowStockLoader.getNetflowStock("UNK");
-    }
 
 }

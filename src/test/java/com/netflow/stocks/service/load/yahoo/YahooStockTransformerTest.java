@@ -29,19 +29,19 @@ public class YahooStockTransformerTest {
 
     @Test
     public void testApply() {
-        NetflowStock netflowStock = transformer.apply(stubYahooAsset());
+        NetflowStock netflowStock = transformer.apply(stubYahooQuote());
         assertThat(netflowStock.getSymbol()).isEqualTo("AAPL");
         assertThat(netflowStock.getName()).isEqualTo("Apple Inc.");
         assertThat(netflowStock.getPrice()).isEqualTo(new BigDecimal("100.02"));
         assertThat(netflowStock.getUpdated()).isEqualTo(LocalDateTime.of(2016, 1, 1, 1, 1, 1));
     }
 
-    private YahooAsset stubYahooAsset() {
-        YahooAsset yahooAsset = new YahooAsset();
-        yahooAsset.setSymbol("AAPL");
-        yahooAsset.setName("Apple Inc.");
-        yahooAsset.setLastTradePriceOnly("100.02");
-        return yahooAsset;
+    private YahooQuote stubYahooQuote() {
+        YahooQuote yahooQuote = new YahooQuote();
+        yahooQuote.setSymbol("AAPL");
+        yahooQuote.setName("Apple Inc.");
+        yahooQuote.setLastTradePriceOnly("100.02");
+        return yahooQuote;
     }
 
 

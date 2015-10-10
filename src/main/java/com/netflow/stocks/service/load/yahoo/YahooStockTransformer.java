@@ -9,17 +9,17 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 
 @Component
-public class YahooStockTransformer implements Function<YahooAsset, NetflowStock> {
+public class YahooStockTransformer implements Function<YahooQuote, NetflowStock> {
 
     @Autowired
     private DateUtils dateUtils;
 
     @Override
-    public NetflowStock apply(YahooAsset yahooAsset) {
+    public NetflowStock apply(YahooQuote yahooQuote) {
         NetflowStock netflowStock = new NetflowStock();
-        netflowStock.setSymbol(yahooAsset.getSymbol());
-        netflowStock.setName(yahooAsset.getName());
-        netflowStock.setPrice(new BigDecimal(yahooAsset.getLastTradePriceOnly()));
+        netflowStock.setSymbol(yahooQuote.getSymbol());
+        netflowStock.setName(yahooQuote.getName());
+        netflowStock.setPrice(new BigDecimal(yahooQuote.getLastTradePriceOnly()));
         netflowStock.setUpdated(dateUtils.now());
         return netflowStock;
     }
