@@ -1,5 +1,7 @@
 package com.netflow.stocks.data;
 
+import com.google.common.base.MoreObjects;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -53,6 +55,17 @@ public class NetflowStock {
 
     public void setUpdated(LocalDateTime updated) {
         this.updated = updated;
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("id", id)
+                .add("symbol", symbol)
+                .add("price", price)
+                .add("name", name)
+                .toString();
+
     }
 }
 

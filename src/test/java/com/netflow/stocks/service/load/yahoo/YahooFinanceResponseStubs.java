@@ -1,7 +1,5 @@
 package com.netflow.stocks.service.load.yahoo;
 
-import com.google.common.collect.Lists;
-
 public class YahooFinanceResponseStubs {
 
     private YahooFinanceResponseStubs() {
@@ -23,7 +21,7 @@ public class YahooFinanceResponseStubs {
     private static YahooFinanceResponse stubResponse(YahooQuote yahooQuote){
 
         YahooResults yahooResults = new YahooResults();
-        yahooResults.setQuotes(Lists.newArrayList(yahooQuote));
+        yahooResults.setQuote(yahooQuote);
 
         YahooQuery yahooQuery = new YahooQuery();
         yahooQuery.setResults(yahooResults);

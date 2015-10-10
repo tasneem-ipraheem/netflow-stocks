@@ -4,18 +4,13 @@ import com.google.common.base.Preconditions;
 import com.netflow.stocks.data.NetflowStock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Service
 public class YahooStocksWrapper {
-
-    private static final int ONE = 1;
-    private static final int FIRST = 0;
 
     @Autowired
     private RestTemplate yahooRestTemplate;
@@ -50,21 +45,15 @@ public class YahooStocksWrapper {
         String query = String.format(queryTemplate, stockSymbol);
         YahooFinanceResponse yahooFinanceResponse = yahooRestTemplate.getForObject(query, YahooFinanceResponse.class);
         validateResponse(stockSymbol, yahooFinanceResponse);
-        YahooQuote yahooQuote = yahooFinanceResponse.getQuery().getResults().getQuotes().get(FIRST);
+        YahooQuote yahooQuote = yahooFinanceResponse.getQuery().getResults().getQuote();
         return yahooQuote;
 
     }
 
     private void validateResponse(String stockSymbol, YahooFinanceResponse yahooFinanceResponse) {
-
         YahooQuery yahooQuery = yahooFinanceResponse.getQuery();
         YahooResults results = yahooQuery.getResults();
-
         Preconditions.checkNotNull(results, "Stock '" + stockSymbol + "' request results invalid");
-
-        List<YahooQuote> yahooQuotes = results.getQuotes();
-        Preconditions.checkState(!CollectionUtils.isEmpty(yahooQuotes), "Stock '" + stockSymbol + "' request does not contain any quotes");
-        Preconditions.checkState(yahooQuotes.size() == ONE, "Stock '" + stockSymbol + "' request quote count: " + yahooQuotes.size());
     }
 
 

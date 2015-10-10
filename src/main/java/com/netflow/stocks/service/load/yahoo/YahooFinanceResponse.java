@@ -3,8 +3,6 @@ package com.netflow.stocks.service.load.yahoo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.List;
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class YahooFinanceResponse {
 
@@ -48,14 +46,14 @@ class YahooQuery {
 class YahooResults {
 
     @JsonProperty(value = "quote")
-    private List<YahooQuote> quotes;
+    private YahooQuote quote;
 
-    public List<YahooQuote> getQuotes() {
-        return quotes;
+    public YahooQuote getQuote() {
+        return quote;
     }
 
-    public void setQuotes(List<YahooQuote> quotes) {
-        this.quotes = quotes;
+    public void setQuote(YahooQuote quote) {
+        this.quote = quote;
     }
 }
 
