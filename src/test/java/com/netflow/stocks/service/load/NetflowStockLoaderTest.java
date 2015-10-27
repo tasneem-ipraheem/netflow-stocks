@@ -1,7 +1,7 @@
 package com.netflow.stocks.service.load;
 
 import com.netflow.stocks.data.NetflowStock;
-import com.netflow.stocks.service.load.yahoo.YahooStocksWrapper;
+import com.netflow.stocks.service.load.yahoo.YahooStocksClient;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -16,7 +16,7 @@ public class NetflowStockLoaderTest {
     @InjectMocks
     private NetflowStockLoader netflowStockLoader;
     @Mock
-    private YahooStocksWrapper yahooStocksWrapper;
+    private YahooStocksClient yahooStocksClient;
     @Mock
     private NetflowStock netflowStockMock;
 
@@ -28,7 +28,7 @@ public class NetflowStockLoaderTest {
     @Test
     public void testGetNetflowStock() throws Exception {
 
-        when(yahooStocksWrapper.getStockBySymbol("AAPL")).thenReturn(netflowStockMock);
+        when(yahooStocksClient.getStockBySymbol("AAPL")).thenReturn(netflowStockMock);
 
         NetflowStock resolvedNetflowStock = netflowStockLoader.getNetflowStock("AAPL");
 

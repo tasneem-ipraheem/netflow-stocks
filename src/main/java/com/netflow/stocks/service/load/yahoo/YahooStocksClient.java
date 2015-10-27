@@ -10,7 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.validation.constraints.NotNull;
 
 @Service
-public class YahooStocksWrapper {
+public class YahooStocksClient {
 
     @Autowired
     private RestTemplate yahooRestTemplate;

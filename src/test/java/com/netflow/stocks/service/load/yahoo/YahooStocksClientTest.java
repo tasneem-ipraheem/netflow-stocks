@@ -14,10 +14,10 @@ import org.springframework.web.client.RestTemplate;
 import static org.mockito.Mockito.*;
 
 @RunWith(PowerMockRunner.class)
-public class YahooStocksWrapperTest {
+public class YahooStocksClientTest {
 
     @InjectMocks
-    private YahooStocksWrapper yahooStocksWrapper;
+    private YahooStocksClient yahooStocksClient;
     @Mock
     private RestTemplate yahooRestTemplate;
     @Mock
@@ -28,7 +28,7 @@ public class YahooStocksWrapperTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        yahooStocksWrapper.postConstruct();
+        yahooStocksClient.postConstruct();
     }
 
     @Test
@@ -38,7 +38,7 @@ public class YahooStocksWrapperTest {
                 .thenReturn(YahooFinanceResponseStubs.stubYahooResponseWithQuoteKnown("AAPL"));
         when(yahooStockTransformer.apply(any(YahooQuote.class))).thenReturn(netflowStockMock);
 
-        NetflowStock netflowStock = yahooStocksWrapper.getStockBySymbol("AAPL");
+        NetflowStock netflowStock = yahooStocksClient.getStockBySymbol("AAPL");
         Assertions.assertThat(netflowStock).isSameAs(netflowStockMock);
     }
 
