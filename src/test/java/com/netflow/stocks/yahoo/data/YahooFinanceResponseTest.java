@@ -1,4 +1,4 @@
-package com.netflow.stocks.service.load.yahoo;
+package com.netflow.stocks.yahoo.data;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;

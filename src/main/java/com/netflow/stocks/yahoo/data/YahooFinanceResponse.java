@@ -1,4 +1,4 @@
-package com.netflow.stocks.service.load.yahoo;
+package com.netflow.stocks.yahoo.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

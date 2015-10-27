@@ -1,4 +1,4 @@
-package com.netflow.stocks.service.load.yahoo;
+package com.netflow.stocks.yahoo.data;
 
 import com.netflow.stocks.data.NetflowStock;
 import com.netflow.stocks.service.util.DateUtils;

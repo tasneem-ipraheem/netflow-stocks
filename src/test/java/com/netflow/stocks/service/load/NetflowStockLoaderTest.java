@@ -1,7 +1,7 @@
 package com.netflow.stocks.service.load;
 
 import com.netflow.stocks.data.NetflowStock;
-import com.netflow.stocks.service.load.yahoo.YahooStocksClient;
+import com.netflow.stocks.yahoo.data.YahooStocksClient;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
