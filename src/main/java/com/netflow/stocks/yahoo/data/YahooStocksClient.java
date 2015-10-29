@@ -2,6 +2,7 @@ package com.netflow.stocks.yahoo.data;
 
 import com.google.common.base.Preconditions;
 import com.netflow.stocks.data.NetflowStock;
+import com.netflow.stocks.yahoo.YqlQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -21,14 +22,11 @@ public class YahooStocksClient {
     @PostConstruct
     public void postConstruct() {
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("https://query.yahooapis.com/v1/public/yql?q=");
-        sb.append("select symbol, Name, Currency, LastTradePriceOnly from yahoo.finance.quotes where symbol = \"%s\"");
-        sb.append("&format=json");
-        sb.append("&diagnostics=true");
-        sb.append("&env=store://datatables.org/alltableswithkeys");
+        YqlQuery yqlQuery = new YqlQuery.YqlQueryBuilder()
+                .statement("select symbol, Name, Currency, LastTradePriceOnly from yahoo.finance.quotes where symbol = \"%s\"")
+                .build();
 
-        queryTemplate = sb.toString();
+        queryTemplate = yqlQuery.getQuery();
 
     }
 
