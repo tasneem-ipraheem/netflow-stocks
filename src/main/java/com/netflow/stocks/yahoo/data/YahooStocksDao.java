@@ -4,14 +4,15 @@ import com.google.common.base.Preconditions;
 import com.netflow.stocks.data.NetflowStock;
 import com.netflow.stocks.yahoo.YqlQuery;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
 import javax.validation.constraints.NotNull;
 
-@Service
-public class YahooStocksClient {
+@Repository
+public class YahooStocksDao {
 
     @Autowired
     private RestTemplate yahooRestTemplate;

@@ -12,10 +12,10 @@ import static org.fest.assertions.api.Assertions.*;
 public class YahooFinanceResponseTest {
 
     @Test
-    public void testMultipleQuotes() throws IOException {
+    public void testSingleQuote() throws IOException {
 
         ObjectMapper mapper = new ObjectMapper();
-        Resource resource = new ClassPathResource("responses/yahoo/single_quote_found.json");
+        Resource resource = new ClassPathResource("responses/yahoo/data/single_quote_found.json");
 
         YahooFinanceResponse response = mapper.readValue(resource.getFile(), YahooFinanceResponse.class);
 
@@ -27,10 +27,10 @@ public class YahooFinanceResponseTest {
     }
 
     @Test
-    public void testMultipleQuotesUnknown() throws IOException {
+    public void testSingleQuoteUnknown() throws IOException {
 
         ObjectMapper mapper = new ObjectMapper();
-        Resource resource = new ClassPathResource("responses/yahoo/single_quote_unknown.json");
+        Resource resource = new ClassPathResource("responses/yahoo/data/single_quote_unknown.json");
 
         YahooFinanceResponse response = mapper.readValue(resource.getFile(), YahooFinanceResponse.class);
 
