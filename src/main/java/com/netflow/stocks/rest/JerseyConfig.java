@@ -1,6 +1,7 @@
 package com.netflow.stocks.rest;
 
 import com.netflow.stocks.service.StocksService;
+import com.netflow.stocks.service.retrieval.StockRetrievalService;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.stereotype.Component;
 

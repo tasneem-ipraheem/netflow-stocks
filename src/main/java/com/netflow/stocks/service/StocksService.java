@@ -1,35 +1,28 @@
 package com.netflow.stocks.service;
 
+import com.netflow.stocks.api.LookupResultDto;
 import com.netflow.stocks.api.StockDto;
 import com.netflow.stocks.api.StocksApi;
-import com.netflow.stocks.data.NetflowStockRepository;
-import com.netflow.stocks.data.NetflowStock;
-import com.netflow.stocks.service.load.NetflowStockLoader;
-import com.netflow.stocks.service.transform.Transformer;
+import com.netflow.stocks.service.retrieval.StockRetrievalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import java.util.Collection;
 
 @Service
 public class StocksService implements StocksApi {
 
     @Autowired
-    private NetflowStockRepository netflowStockRepository;
-    @Autowired
-    private NetflowStockLoader netflowStockLoader;
-    @Autowired
-    private Transformer transformer;
+    private StockRetrievalService stockRetrievalService;
 
-    @Transactional
-    public StockDto getStockBySymbol(String symbol) {
-        NetflowStock netflowStock = netflowStockRepository.findOneBySymbol(symbol);
-        if (netflowStock == null) {
-            netflowStock = netflowStockLoader.getNetflowStock(symbol);
-            netflowStock = netflowStockRepository.save(netflowStock);
-        }
-        StockDto stockDto = transformer.entityToDto(netflowStock);
+    @Override
+    public StockDto getStockBySymbol(String stockId) {
+        StockDto stockDto = stockRetrievalService.getStockBySymbol(stockId);
         return stockDto;
     }
 
+    @Override
+    public Collection<LookupResultDto> lookupSymbolByName(String name) {
+        return null;
+    }
 }

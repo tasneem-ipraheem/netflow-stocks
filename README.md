@@ -27,3 +27,7 @@ Add properties ```-Dhttp.proxyHost=[HOST] -Dhttp.proxyPort=[PORT]```
 ### Dynamic class reloading
 To enable use ```-Pspring-loaded``` profile when starting application from maven. 
 When running application from sources, IDE recompiled classes will be automatically re-loaded by auto-configured 'SpringLoaded'. 
+
+#TODO
+ * add lookup to readme
+ * DoS and encode user query for DB/JS security

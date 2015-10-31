@@ -1,6 +1,6 @@
 package com.netflow.stocks;
 
-import com.netflow.stocks.service.util.DateUtils;
+import com.netflow.stocks.service.retrieval.util.DateUtils;
 import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
