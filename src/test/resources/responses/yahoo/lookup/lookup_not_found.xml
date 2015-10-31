@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query xmlns:yahoo="http://www.yahooapis.com/v1/base.rng"
+       yahoo:count="0" yahoo:created="2015-10-30T23:12:09Z" yahoo:lang="en-US">
+    <diagnostics>
+        <publiclyCallable>true</publiclyCallable>
+        <url error="Read timed out" execution-start-time="1"
+             execution-stop-time="5888" execution-time="5887"
+             http-status-code="200" http-status-message="OK">
+            <![CDATA[http://finance.yahoo.com/lookup?s=unkownCompany]]></url>
+        <url error="Read timed out" execution-start-time="1"
+             execution-stop-time="5888" execution-time="5887"
+             http-status-code="200" http-status-message="OK">
+            <![CDATA[http://finance.yahoo.com/lookup?s=unkownCompany]]></url>
+        <url error="Read timed out" execution-start-time="1"
+             execution-stop-time="5888" execution-time="5887"
+             http-status-code="200" http-status-message="OK">
+            <![CDATA[http://finance.yahoo.com/lookup?s=unkownCompany]]></url>
+        <user-time>5888</user-time>
+        <service-time>16815</service-time>
+        <build-version>0.2.240</build-version>
+    </diagnostics>
+    <results/>
+</query>

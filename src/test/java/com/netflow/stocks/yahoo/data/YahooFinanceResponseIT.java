@@ -9,7 +9,7 @@ import java.io.IOException;
 
 import static org.fest.assertions.api.Assertions.*;
 
-public class YahooFinanceResponseTest {
+public class YahooFinanceResponseIT {
 
     @Test
     public void testSingleQuote() throws IOException {

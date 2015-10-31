@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query xmlns:yahoo="http://www.yahooapis.com/v1/base.rng"
+       yahoo:count="20" yahoo:created="2015-10-29T22:01:08Z" yahoo:lang="en-US">
+    <diagnostics>
+        <publiclyCallable>true</publiclyCallable>
+        <url execution-start-time="1" execution-stop-time="1712" execution-time="1711">
+            <![CDATA[http://finance.yahoo.com/lookup?s=google]]></url>
+        <url execution-start-time="1" execution-stop-time="1712" execution-time="1711">
+            <![CDATA[http://finance.yahoo.com/lookup?s=google]]></url>
+        <user-time>1714</user-time>
+        <service-time>3417</service-time>
+        <build-version>0.2.240</build-version>
+    </diagnostics>
+    <results>
+        <tr class="yui-dt-odd">
+            <td>
+                <a href="http://finance.yahoo.com/q?s=GGQ1.DE">GGQ1.DE</a>
+            </td>
+            <td>Google Inc.</td>
+            <td class="ticker_down">564.00</td>
+            <td>Stock</td>
+            <td/>
+            <td>GER</td>
+        </tr>
+        <tr class="yui-dt-even">
+            <td>
+                <a href="http://finance.yahoo.com/q?s=GGQ7.BE">GGQ7.BE</a>
+            </td>
+            <td/>
+            <td>NaN</td>
+            <td>Stock</td>
+            <td/>
+            <td/>
+        </tr>
+    </results>
+</query>
