@@ -2,3 +2,6 @@ spring.datasource.url=jdbc:mysql://[HOST]:[PORT]/stocks
 spring.datasource.username=[USER]
 spring.datasource.password=[PASSWORD]
 spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+netflow.stocks.scheduler.cron=0/10 * * * * *
+netflow.stocks.lookup.retry.timeout.milliseconds=500
+netflow.stocks.lookup.retry.times=10

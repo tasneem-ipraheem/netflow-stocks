@@ -1,6 +1,7 @@
 package com.netflow.stocks;
 
 import com.google.common.collect.Lists;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -23,15 +24,18 @@ import org.springframework.web.client.RestTemplate;
 @EnableTransactionManagement
 public class Application {
 
+    @Value("${netflow.stocks.lookup.retry.timeout.milliseconds}")
+    private int retryTimeoutMilliseconds;
+
     @Bean
-    public RestTemplate yahooRestTemplate(){
+    public RestTemplate yahooRestTemplate() {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.setMessageConverters(Lists.newArrayList(new MappingJackson2HttpMessageConverter()));
         return restTemplate;
     }
 
     @Bean
-    public RestTemplate yahooLookupRestTemplate(){
+    public RestTemplate yahooLookupRestTemplate() {
         RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory());
         restTemplate.setMessageConverters(Lists.newArrayList(new MappingJackson2XmlHttpMessageConverter()));
         return restTemplate;
@@ -39,7 +43,7 @@ public class Application {
 
     private ClientHttpRequestFactory clientHttpRequestFactory() {
         HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
-        factory.setReadTimeout(500);
+        factory.setReadTimeout(retryTimeoutMilliseconds);
         return factory;
     }
 

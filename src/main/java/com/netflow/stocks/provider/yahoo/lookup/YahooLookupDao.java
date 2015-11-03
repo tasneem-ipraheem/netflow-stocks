@@ -4,6 +4,7 @@ import com.google.common.base.Optional;
 import com.netflow.stocks.provider.yahoo.YqlQuery;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
@@ -14,8 +15,13 @@ import javax.annotation.PostConstruct;
 public class YahooLookupDao {
 
     private static Logger LOGGER = Logger.getLogger(YahooLookupDao.class);
+
+    @Value("${netflow.stocks.lookup.retry.times}")
+    private int retryTimes;
+
     @Autowired
     private RestTemplate yahooLookupRestTemplate;
+
     private String queryTemplate;
 
     @PostConstruct
@@ -34,7 +40,7 @@ public class YahooLookupDao {
 
         String query = String.format(queryTemplate, name);
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < retryTimes; i++) {
             Optional<YahooLookupQueryResponse> yahooLookupQueryResponseOptional = getResponse(query);
             if (yahooLookupQueryResponseOptional.isPresent()) {
                 return yahooLookupQueryResponseOptional.get();
@@ -43,6 +49,7 @@ public class YahooLookupDao {
 
         throw new RuntimeException("Could not lookup symbol for query '" + name + "' ");
     }
+
 
     private Optional<YahooLookupQueryResponse> getResponse(String query) {
 
