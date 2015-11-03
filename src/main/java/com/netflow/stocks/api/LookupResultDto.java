@@ -1,5 +1,8 @@
 package com.netflow.stocks.api;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "lookupResult")
 public class LookupResultDto {
 
     private String symbol;

@@ -30,4 +30,5 @@ When running application from sources, IDE recompiled classes will be automatica
 
 #TODO
  * add lookup to readme
- * DoS and encode user query for DB/JS security
+ * DoS, XSS, DB
+ * lookup statistics - number of requests and hit/failure rate

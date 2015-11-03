@@ -9,7 +9,7 @@ public class YqlQuery {
         StringBuilder querySb = new StringBuilder();
         querySb.append("https://query.yahooapis.com/v1/public/yql?q=");
         querySb.append(yqlQueryBuilder.statement);
-        querySb.append("&format=json");
+        querySb.append("&format=" + yqlQueryBuilder.format.toString());
         querySb.append("&diagnostics=true");
         querySb.append("&env=store://datatables.org/alltableswithkeys");
 
@@ -24,9 +24,15 @@ public class YqlQuery {
     public static class YqlQueryBuilder {
 
         private String statement;
+        private FORMAT format = FORMAT.json;
 
         public YqlQueryBuilder statement(String statement) {
             this.statement = statement;
+            return this;
+        }
+
+        public YqlQueryBuilder format(FORMAT format) {
+            this.format = format;
             return this;
         }
 
@@ -34,6 +40,10 @@ public class YqlQuery {
             return new YqlQuery(this);
         }
 
+    }
+
+    public enum FORMAT {
+        xml, json
     }
 
 }

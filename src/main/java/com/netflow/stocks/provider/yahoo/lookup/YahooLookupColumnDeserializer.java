@@ -43,8 +43,10 @@ public class YahooLookupColumnDeserializer extends JsonDeserializer<YahooLookupR
         JsonNode hrefNode = node.findValue(A_TAG);
         if (hrefNode != null) {
             JsonNode tickerNode = hrefNode.findValue(StringUtils.EMPTY);
-            String ticker = tickerNode.asText();
-            return ticker;
+            if (tickerNode != null) {
+                String ticker = tickerNode.asText();
+                return ticker;
+            }
         }
 
         JsonNode nodeClass = node.get(CLASS_ATTRIBUTE);
