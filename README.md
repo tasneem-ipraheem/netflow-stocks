@@ -33,3 +33,8 @@ When running application from sources, IDE recompiled classes will be automatica
  * DoS, XSS, DB
  * lookup statistics - number of requests and hit/failure rate, response time ms
  * check CRON expressions
+ * edge case for lookup input with spaces
+ * application name in browser TAB
+ * application port 
+ * scheduled updates stats, try/catch block on updates failures
+ * logging

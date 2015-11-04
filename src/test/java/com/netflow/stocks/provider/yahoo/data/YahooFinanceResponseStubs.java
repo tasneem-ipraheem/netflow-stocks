@@ -18,13 +18,17 @@ public class YahooFinanceResponseStubs {
         return response;
     }
 
-    private static YahooFinanceResponse stubResponse(YahooQuote yahooQuote){
+    private static YahooFinanceResponse stubResponse(YahooQuote yahooQuote) {
 
         YahooResults yahooResults = new YahooResults();
         yahooResults.setQuote(yahooQuote);
 
+        Diagnostics diagnostics = new Diagnostics();
+        diagnostics.setExecutionTime(301);
+
         YahooQuery yahooQuery = new YahooQuery();
         yahooQuery.setResults(yahooResults);
+        yahooQuery.setDiagnostics(diagnostics);
 
         YahooFinanceResponse response = new YahooFinanceResponse();
         response.setQuery(yahooQuery);

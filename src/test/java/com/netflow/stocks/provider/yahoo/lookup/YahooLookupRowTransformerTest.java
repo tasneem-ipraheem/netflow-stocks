@@ -56,14 +56,28 @@ public class YahooLookupRowTransformerTest {
     @Test
     public void testApplyWithNullNameColumnValue() throws Exception {
         Mockito.when(nameColumn.getValue()).thenReturn(null);
-        Optional<LookupResultDto> optionalDto = transformer.apply(invalidRowWithLessColumns());
+        Optional<LookupResultDto> optionalDto = transformer.apply(row);
         Assertions.assertThat(optionalDto.isPresent()).isFalse();
     }
 
     @Test
     public void testApplyWithEmptyNameColumnValue() throws Exception {
         Mockito.when(nameColumn.getValue()).thenReturn(StringUtils.EMPTY);
-        Optional<LookupResultDto> optionalDto = transformer.apply(invalidRowWithLessColumns());
+        Optional<LookupResultDto> optionalDto = transformer.apply(row);
+        Assertions.assertThat(optionalDto.isPresent()).isFalse();
+    }
+
+    @Test
+    public void testApplyWithNullColumn() throws Exception {
+        row.setColumns(Lists.newArrayList(
+                        tickerColumn,
+                        null,
+                        randomColumn,
+                        randomColumn,
+                        randomColumn,
+                        exchangeColumn)
+        );
+        Optional<LookupResultDto> optionalDto = transformer.apply(row);
         Assertions.assertThat(optionalDto.isPresent()).isFalse();
     }
 

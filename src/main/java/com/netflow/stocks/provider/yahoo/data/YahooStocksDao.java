@@ -3,6 +3,8 @@ package com.netflow.stocks.provider.yahoo.data;
 import com.google.common.base.Preconditions;
 import com.netflow.stocks.data.NetflowStock;
 import com.netflow.stocks.provider.yahoo.YqlQuery;
+import com.netflow.stocks.statistics.Provider;
+import com.netflow.stocks.statistics.StatsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
@@ -17,6 +19,8 @@ public class YahooStocksDao {
     private RestTemplate yahooRestTemplate;
     @Autowired
     private YahooStockTransformer yahooStockTransformer;
+    @Autowired
+    private StatsService statsService;
     private String queryTemplate;
 
     @PostConstruct
@@ -43,9 +47,16 @@ public class YahooStocksDao {
         String query = String.format(queryTemplate, stockSymbol);
         YahooFinanceResponse yahooFinanceResponse = yahooRestTemplate.getForObject(query, YahooFinanceResponse.class);
         validateResponse(stockSymbol, yahooFinanceResponse);
+        logStats(yahooFinanceResponse);
         YahooQuote yahooQuote = yahooFinanceResponse.getQuery().getResults().getQuote();
         return yahooQuote;
 
+    }
+
+    private void logStats(YahooFinanceResponse yahooFinanceResponse) {
+        Diagnostics diagnostics = yahooFinanceResponse.getQuery().getDiagnostics();
+        int executionTime = diagnostics.getExecutionTime();
+        statsService.logSuccess(Provider.YAHOO_DATA, executionTime);
     }
 
     private void validateResponse(String stockSymbol, YahooFinanceResponse yahooFinanceResponse) {

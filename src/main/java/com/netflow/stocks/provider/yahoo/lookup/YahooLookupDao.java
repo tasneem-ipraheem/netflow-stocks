@@ -2,6 +2,8 @@ package com.netflow.stocks.provider.yahoo.lookup;
 
 import com.google.common.base.Optional;
 import com.netflow.stocks.provider.yahoo.YqlQuery;
+import com.netflow.stocks.statistics.Provider;
+import com.netflow.stocks.statistics.StatsService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +23,8 @@ public class YahooLookupDao {
 
     @Autowired
     private RestTemplate yahooLookupRestTemplate;
+    @Autowired
+    private StatsService statsService;
 
     private String queryTemplate;
 
@@ -47,20 +51,36 @@ public class YahooLookupDao {
             }
         }
 
-        throw new RuntimeException("Could not lookup symbol for query '" + name + "' ");
+        throw new ResourceAccessException("Could not lookup symbol for query '" + name + "' ");
     }
+
 
 
     private Optional<YahooLookupQueryResponse> getResponse(String query) {
 
         try {
             YahooLookupQueryResponse yahooLookupQueryResponse = yahooLookupRestTemplate.getForObject(query, YahooLookupQueryResponse.class);
+            logSuccess(yahooLookupQueryResponse);
             return Optional.of(yahooLookupQueryResponse);
         } catch (ResourceAccessException e) {
-            LOGGER.error("Lookup timeout exception for '" + query + "'");
+            LOGGER.debug("Lookup timeout exception for '" + query + "'");
+            logFailure();
             return Optional.absent();
         }
 
     }
 
+    private void logSuccess(YahooLookupQueryResponse yahooLookupQueryResponse) {
+        Diagnostics diagnostics = yahooLookupQueryResponse.getDiagnostics();
+        int executionTime = diagnostics.getExecutionTime();
+        statsService.logSuccess(Provider.YAHOO_LOOKUP, executionTime);
+    }
+
+    private void logFailure(){
+        statsService.logFailure(Provider.YAHOO_LOOKUP);
+    }
+
+    protected void setRetryTimes(int retryTimes) {
+        this.retryTimes = retryTimes;
+    }
 }

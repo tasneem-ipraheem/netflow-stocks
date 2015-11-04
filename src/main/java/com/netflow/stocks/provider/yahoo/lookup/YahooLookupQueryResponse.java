@@ -12,6 +12,8 @@ public class YahooLookupQueryResponse {
 
     private YahooResults results;
 
+    private Diagnostics diagnostics;
+
     public YahooResults getResults() {
         return results;
     }
@@ -20,6 +22,27 @@ public class YahooLookupQueryResponse {
         this.results = results;
     }
 
+    public Diagnostics getDiagnostics() {
+        return diagnostics;
+    }
+
+    public void setDiagnostics(Diagnostics diagnostics) {
+        this.diagnostics = diagnostics;
+    }
+}
+
+class Diagnostics {
+
+    @JacksonXmlProperty(localName = "user-time")
+    private int executionTime;
+
+    public int getExecutionTime() {
+        return executionTime;
+    }
+
+    public void setExecutionTime(int executionTime) {
+        this.executionTime = executionTime;
+    }
 }
 
 class YahooResults {

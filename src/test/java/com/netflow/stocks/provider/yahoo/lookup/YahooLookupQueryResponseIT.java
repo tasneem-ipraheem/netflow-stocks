@@ -21,9 +21,11 @@ public class YahooLookupQueryResponseIT {
         Resource resource = new ClassPathResource("responses/yahoo/lookup/lookup_found.xml");
 
         YahooLookupQueryResponse response = objectMapper.readValue(resource.getFile(), YahooLookupQueryResponse.class);
+        Diagnostics diagnostics = response.getDiagnostics();
         YahooResults yahooResults = response.getResults();
         List<YahooLookupResultRow> rows = yahooResults.getRows();
 
+        assertThat(diagnostics.getExecutionTime()).isEqualTo(1714);
         assertThat(rows).hasSize(2);
 
         YahooLookupResultRow row1 = rows.get(0);
@@ -57,8 +59,10 @@ public class YahooLookupQueryResponseIT {
         Resource resource = new ClassPathResource("responses/yahoo/lookup/lookup_not_found.xml");
 
         YahooLookupQueryResponse response = objectMapper.readValue(resource.getFile(), YahooLookupQueryResponse.class);
+        Diagnostics diagnostics = response.getDiagnostics();
         YahooResults yahooResults = response.getResults();
 
+        assertThat(diagnostics.getExecutionTime()).isEqualTo(5888);
         assertThat(yahooResults).isNull();
 
     }

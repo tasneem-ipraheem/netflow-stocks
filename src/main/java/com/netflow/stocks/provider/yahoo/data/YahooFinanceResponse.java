@@ -20,18 +20,8 @@ public class YahooFinanceResponse {
 @JsonIgnoreProperties(ignoreUnknown = true)
 class YahooQuery {
 
-    @JsonProperty(value = "count")
-    private int resultCount;
     private YahooResults results;
-
-
-    public int getResultCount() {
-        return resultCount;
-    }
-
-    public void setResultCount(int resultCount) {
-        this.resultCount = resultCount;
-    }
+    private Diagnostics diagnostics;
 
     public YahooResults getResults() {
         return results;
@@ -39,6 +29,29 @@ class YahooQuery {
 
     public void setResults(YahooResults results) {
         this.results = results;
+    }
+
+    public Diagnostics getDiagnostics() {
+        return diagnostics;
+    }
+
+    public void setDiagnostics(Diagnostics diagnostics) {
+        this.diagnostics = diagnostics;
+    }
+}
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+class Diagnostics {
+
+    @JsonProperty(value = "user-time")
+    private int executionTime;
+
+    public int getExecutionTime() {
+        return executionTime;
+    }
+
+    public void setExecutionTime(int executionTime) {
+        this.executionTime = executionTime;
     }
 }
 
