@@ -6,7 +6,9 @@
  2. **Updates stock quotes** data daily using scheduled process to collect data from 'Yahoo Finance'.
   
 ## How to use it?
-Stock information can be retrieved using ```[HOST]:8080/stocks/[STOCK_SYMBOL]``` GET request.
+ - Stock symbol lookup can be retrieved using ```[HOST]:8080/stocks/lookup/[SEARCH_NAME]``` GET request.
+ - Stock details can be retrieved using ```[HOST]:8080/stocks/[STOCK_SYMBOL]``` GET request.
+ - Stocks request statistics can be retrieved using ```[HOST]:8080/stocks/stats``` GET request.
 
 ## Running application & Configuration
 
@@ -29,12 +31,11 @@ To enable use ```-Pspring-loaded``` profile when starting application from maven
 When running application from sources, IDE recompiled classes will be automatically re-loaded by auto-configured 'SpringLoaded'. 
 
 #TODO
- * add lookup to readme
  * DoS, XSS, DB
- * lookup statistics - number of requests and hit/failure rate, response time ms
  * check CRON expressions
  * edge case for lookup input with spaces
  * application name in browser TAB
  * application port 
  * scheduled updates stats, try/catch block on updates failures
  * logging
+ * JSON browser, jvmvisi

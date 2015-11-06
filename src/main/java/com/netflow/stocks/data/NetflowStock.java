@@ -12,6 +12,7 @@ public class NetflowStock {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @Column(unique = true)
     private String symbol;
     private String name;
     private BigDecimal price;

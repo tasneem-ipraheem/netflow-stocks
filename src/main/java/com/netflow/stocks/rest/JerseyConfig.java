@@ -1,7 +1,7 @@
 package com.netflow.stocks.rest;
 
 import com.netflow.stocks.service.StocksService;
-import com.netflow.stocks.service.retrieval.StockRetrievalService;
+import com.netflow.stocks.statistics.StatsService;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +13,7 @@ public class JerseyConfig extends ResourceConfig {
 
     public JerseyConfig() {
         register(StocksService.class);
+        register(StatsService.class);
     }
 
 }
