@@ -23,7 +23,17 @@ public class StatsRepoTest {
         Assertions.assertThat(providerStats.getFailureNumber()).isZero();
         Assertions.assertThat(providerStats.getExecutionTimeMilliseconds()).isEqualTo(101);
         Assertions.assertThat(providerStats.getProvider()).isSameAs(Provider.YAHOO_DATA);
+    }
 
+    @Test
+    public void testClear() throws Exception {
+        statsRepo.addSuccess(Provider.YAHOO_DATA, 101);
+        statsRepo.clear();
+        ProviderStats providerStats = statsRepo.getProviderStats(Provider.YAHOO_DATA);
+        Assertions.assertThat(providerStats.getSuccessNumber()).isZero();
+        Assertions.assertThat(providerStats.getFailureNumber()).isZero();
+        Assertions.assertThat(providerStats.getExecutionTimeMilliseconds()).isZero();
+        Assertions.assertThat(providerStats.getProvider()).isSameAs(Provider.YAHOO_DATA);
     }
 
     @Test
@@ -98,4 +108,5 @@ public class StatsRepoTest {
         Assertions.assertThat(providerStats.getExecutionTimeMilliseconds()).isEqualTo(101);
         Assertions.assertThat(providerStats.getProvider()).isSameAs(Provider.YAHOO_DATA);
     }
+
 }

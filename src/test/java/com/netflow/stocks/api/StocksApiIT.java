@@ -8,6 +8,8 @@ import com.google.common.io.Files;
 import com.netflow.stocks.Application;
 import com.netflow.stocks.BaseIntegrationTest;
 import com.netflow.stocks.provider.yahoo.data.YahooFinanceResponse;
+import com.netflow.stocks.provider.yahoo.lookup.YahooLookupQueryResponse;
+import com.netflow.stocks.provider.yahoo.lookup.YahooLookupQueryResponseStubs;
 import com.netflow.stocks.service.retrieval.util.DateUtils;
 import com.netflow.stocks.provider.yahoo.data.YahooFinanceResponseStubs;
 import org.junit.Before;
@@ -45,7 +47,8 @@ public class StocksApiIT extends BaseIntegrationTest {
 
     @Autowired
     private RestTemplate yahooRestTemplate;
-
+    @Autowired
+    private RestTemplate yahooLookupRestTemplate;
     @Autowired
     private DateUtils dateUtils;
 
@@ -57,16 +60,14 @@ public class StocksApiIT extends BaseIntegrationTest {
 
     @Before
     public void setUp() throws Exception {
-
         template = new TestRestTemplate();
         when(dateUtils.now()).thenReturn(LocalDateTime.of(2015, 12, 31, 23, 55, 55));
-
     }
 
     @Test
     public void getStockFromDatabase() throws Exception {
 
-        Resource expectedResponse = new ClassPathResource("responses/gold_ETF_01.json");
+        Resource expectedResponse = new ClassPathResource("responses/netflow/data/gold_etf_details.json");
         String expectedResponseString = Files.toString(expectedResponse.getFile(), Charset.defaultCharset());
 
         base = new URL("http://localhost:" + port + "/stocks/PHAG.L");
@@ -83,7 +84,7 @@ public class StocksApiIT extends BaseIntegrationTest {
     @Test
     public void getStockFromYahooFinance() throws Exception {
 
-        Resource expectedResponse = new ClassPathResource("responses/mocked_01.json");
+        Resource expectedResponse = new ClassPathResource("responses/netflow/data/mocked_stock_details.json");
         String expectedResponseString = Files.toString(expectedResponse.getFile(), Charset.defaultCharset());
         when(yahooRestTemplate.getForObject(any(String.class), eq(YahooFinanceResponse.class)))
                 .thenReturn(YahooFinanceResponseStubs.stubYahooResponseWithQuoteKnown("MOCK"));
@@ -108,6 +109,25 @@ public class StocksApiIT extends BaseIntegrationTest {
         ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+
+    }
+
+
+    @Test
+    public void lookupSymbol() throws Exception {
+
+        Resource expectedResponse = new ClassPathResource("responses/netflow/lookup/lookup_ed.json");
+        String expectedResponseString = Files.toString(expectedResponse.getFile(), Charset.defaultCharset());
+        when(yahooLookupRestTemplate.getForObject(any(String.class), eq(YahooLookupQueryResponse.class)))
+                .thenReturn(YahooLookupQueryResponseStubs.stubYahooLookupResponse("ed", "Ed Inc."));
+
+        base = new URL("http://localhost:" + port + "/stocks/lookup/ed");
+        ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
+
+        String responseString = response.getBody();
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        JSONAssert.assertEquals(expectedResponseString, responseString, true);
 
     }
 

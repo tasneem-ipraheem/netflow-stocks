@@ -37,6 +37,10 @@ public class StatsRepo {
         return ImmutableList.copyOf(defensiveStatsCollectionCopy);
     }
 
+    public synchronized void clear() {
+        statsMap.clear();
+    }
+
     private ProviderStats addSuccess(Provider provider, ProviderStats stats, int executionTimeMilliseconds) {
 
         if (stats == null) {
