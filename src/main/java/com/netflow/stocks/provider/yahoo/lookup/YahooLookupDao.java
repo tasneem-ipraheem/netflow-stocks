@@ -16,7 +16,7 @@ import javax.annotation.PostConstruct;
 @Repository
 public class YahooLookupDao {
 
-    private static Logger LOGGER = Logger.getLogger(YahooLookupDao.class);
+    private static Logger logger = Logger.getLogger(YahooLookupDao.class);
 
     @Value("${netflow.stocks.lookup.retry.times}")
     private int retryTimes;
@@ -63,7 +63,7 @@ public class YahooLookupDao {
             logSuccess(yahooLookupQueryResponse);
             return Optional.of(yahooLookupQueryResponse);
         } catch (ResourceAccessException e) {
-            LOGGER.debug("Lookup timeout exception for '" + query + "'");
+            logger.debug("Lookup timeout exception for '" + query + "'");
             logFailure();
             return Optional.absent();
         }

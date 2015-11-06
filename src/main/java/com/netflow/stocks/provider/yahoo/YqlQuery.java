@@ -1,6 +1,6 @@
 package com.netflow.stocks.provider.yahoo;
 
-public class YqlQuery {
+public final class YqlQuery {
 
     private String query;
 

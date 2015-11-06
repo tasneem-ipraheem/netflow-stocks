@@ -19,7 +19,7 @@ import java.util.List;
 @Transactional
 public class ScheduledUpdater {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(ScheduledUpdater.class);
+    private static Logger logger = LoggerFactory.getLogger(ScheduledUpdater.class);
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -45,7 +45,7 @@ public class ScheduledUpdater {
 
     @Transactional(Transactional.TxType.REQUIRES_NEW)
     public void updateStock(long id, String symbol) {
-        LOGGER.info("updating stock: " + symbol);
+        logger.info("updating stock: " + symbol);
         NetflowStock detachedNetflowStock = netflowStockLoader.getNetflowStock(symbol);
         detachedNetflowStock.setId(id);
         entityManager.merge(detachedNetflowStock);

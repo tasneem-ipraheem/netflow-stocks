@@ -10,14 +10,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class NetflowStockLoader {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(NetflowStockLoader.class);
+    private static Logger logger = LoggerFactory.getLogger(NetflowStockLoader.class);
 
     @Autowired
     private YahooStocksDao yahooStocksDao;
 
     public NetflowStock getNetflowStock(String stockSymbol) {
         NetflowStock netflowStock = yahooStocksDao.getStockBySymbol(stockSymbol);
-        LOGGER.info("Stock " + stockSymbol + " data retrieved: " + netflowStock);
+        logger.info("Stock " + stockSymbol + " data retrieved: " + netflowStock);
         return netflowStock;
     }
 
