@@ -3,6 +3,7 @@ package com.netflow.stocks.update;
 import com.netflow.stocks.data.NetflowStock;
 import com.netflow.stocks.data.NetflowStockRepository;
 import com.netflow.stocks.service.retrieval.NetflowStockLoader;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -18,7 +19,7 @@ import java.util.List;
 @Transactional
 public class ScheduledUpdater {
 
-    private static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ScheduledUpdater.class);
+    private static Logger LOGGER = LoggerFactory.getLogger(ScheduledUpdater.class);
 
     @PersistenceContext
     private EntityManager entityManager;
