@@ -6,21 +6,21 @@
  2. **Updates stock quotes** data daily using scheduled process to collect data from 'Yahoo Finance'.
   
 ## How to use it?
- - Stock symbol lookup can be retrieved using ```[HOST]:8080/stocks/lookup/[SEARCH_NAME]``` GET request.
- - Stock details can be retrieved using ```[HOST]:8080/stocks/[STOCK_SYMBOL]``` GET request.
- - Stocks request statistics can be retrieved using ```[HOST]:8080/stocks/stats``` GET request.
+ - Stock symbol lookup can be retrieved using ```<HOST>/stocks/lookup/<SEARCH_NAME>``` GET request.
+ - Stock details can be retrieved using ```<HOST>/stocks/<STOCK_SYMBOL>``` GET request.
+ - Stocks request statistics can be retrieved using ```<HOST>/stocks/stats``` GET request.
 
 ## Running application & Configuration
 
 ### Running
 Run ```mvn spring-boot:run``` maven command to start the application with in memory database. 
-Default datasource (H2 in memory database) configuration can be overridden by external application properties file using ```-Dspring.config.location=file:[path_to_properties_file]```. 
+Default datasource (H2 in memory database) configuration can be overridden by external application properties file using ```-Dspring.config.location=file:<path_to_properties_file>```. 
 
 ### Remote debugging
 Add property ```-Drun.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"```
 
 ### Proxy settings
-Add properties ```-Dhttp.proxyHost=[HOST] -Dhttp.proxyPort=[PORT]```
+Add properties ```-Dhttp.proxyHost=<HOST> -Dhttp.proxyPort=<PORT>```
 
 ### Externalizing storage
  * **Database creation scripts** can be found under ```/src/main/database``` folder in sources.  
@@ -30,12 +30,14 @@ Add properties ```-Dhttp.proxyHost=[HOST] -Dhttp.proxyPort=[PORT]```
 To enable use ```-Pspring-loaded``` profile when starting application from maven. 
 When running application from sources, IDE recompiled classes will be automatically re-loaded by auto-configured 'SpringLoaded'. 
 
+## Monitoring
+Monitoring uses Netflow uses Spring Boot built-in Actuator. By default Netflow exposes statistics on localhost port 8081, not accessed remotely. <br/> 
+```localhost:8081/[autoconfig|beans|configprops|dump|env|health|info|metrics|mappings|shutdown|trace|jolokia]```
+
 #TODO
  * DoS, XSS, DB
  * check CRON expressions
  * edge case for lookup input with spaces
- * application name in browser TAB
- * application port 
  * scheduled updates stats, try/catch block on updates failures
  * logging
- * JSON browser, jvmvisi
+ * security of stats url
