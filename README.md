@@ -6,9 +6,8 @@
  2. **Updates stock quotes** data every 15 minutes using scheduled process to collect data from 'Yahoo Finance'.
   
 ## How to use it?
- - Stock symbol lookup can be retrieved using ```<HOST>/stocks/lookup/<SEARCH_NAME>``` GET request.
- - Stock details can be retrieved using ```<HOST>/stocks/<STOCK_SYMBOL>``` GET request.
- - Stocks request statistics can be retrieved using ```<HOST>/stocks/stats``` GET request.
+ - Stock symbol lookup can be retrieved using ```http://<HOST>/stocks/lookup?q=<SEARCH_NAME>``` GET request.
+ - Stock details can be retrieved using ```http://<HOST>/stocks/stock/<STOCK_SYMBOL>``` GET request.
 
 ## Running application & Configuration
 
@@ -30,15 +29,17 @@ Add properties ```-Dhttp.proxyHost=<HOST> -Dhttp.proxyPort=<PORT>```
 To enable use ```-Pspring-loaded``` profile when starting application from maven. 
 When running application from sources, IDE recompiled classes will be automatically re-loaded by auto-configured 'SpringLoaded'. 
 
-## Monitoring & Logging
+## Monitoring, Statistics & Logging
 
 ### Logging
 Logs can be found in ```<NETFLOW_APP_DIRECTORY>/netflow-stocks.log``` and logging level customised using ```application.properties```.
 
-### Monitoring
-Monitoring uses Netflow uses Spring Boot built-in Actuator. By default Netflow exposes statistics on localhost port 8081, not accessed remotely. <br/> 
-```localhost:8081/[autoconfig|beans|configprops|dump|env|health|info|metrics|mappings|shutdown|trace|jolokia]```
+### Monitoring & Statistics
+Spring Boot built-in Actuator monitoring can be accessed bu URL: 
+```http://<HOST>/manage/[autoconfig|beans|configprops|dump|env|health|info|metrics|mappings|shutdown|trace|jolokia]```. <br/>
+Netflow Stocks request statistics provided in ```http://<HOST>/stocks/stats```.
 
-
-#TODO
- * security of stats url
+#Security
+Monitoring and statistics URLs are protected by default ```admin/secret``` credentials that can be overridden by 
+ ```netflow.users.admin.*``` properties in application.properties. To logout use ```http://<HOST>/logout``` URL. <br/> 
+To prevent XSS and SQL injections, all user input (i.e. TICKER symbols, lookup queries) is encoded. <br/><br/>
