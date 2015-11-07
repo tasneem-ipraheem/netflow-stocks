@@ -26,13 +26,19 @@ public class ScheduledUpdaterTest {
     @Mock
     private NetflowStockLoader netflowStockLoader;
     @Mock
-    private NetflowStock netflowStock;
+    private NetflowStock netflowStock1;
+    @Mock
+    private NetflowStock netflowStock2;
     @Mock
     private NetflowStock detachedNetflowStock;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        when(netflowStock1.getId()).thenReturn(1L);
+        when(netflowStock1.getSymbol()).thenReturn("ed");
+        when(netflowStock2.getId()).thenReturn(2L);
+        when(netflowStock2.getSymbol()).thenReturn("mock");
     }
 
     @Test
@@ -45,14 +51,26 @@ public class ScheduledUpdaterTest {
     @Test
     public void testUpdateStock() throws Exception {
 
-        when(netflowStockRepository.findAll()).thenReturn(Lists.newArrayList(netflowStock));
-        when(netflowStock.getId()).thenReturn(1L);
-        when(netflowStock.getSymbol()).thenReturn("ed");
+        when(netflowStockRepository.findAll()).thenReturn(Lists.newArrayList(netflowStock1));
         when(netflowStockLoader.getNetflowStock("ed")).thenReturn(detachedNetflowStock);
 
         scheduledUpdater.updateStocksData();
 
         verify(detachedNetflowStock).setId(1L);
+        verify(entityManager).merge(detachedNetflowStock);
+
+    }
+
+    @Test
+    public void testUpdateStocksWithOneFailing() throws Exception {
+
+        when(netflowStockRepository.findAll()).thenReturn(Lists.newArrayList(netflowStock1, netflowStock2));
+        when(netflowStockLoader.getNetflowStock("ed")).thenThrow(new IllegalStateException());
+        when(netflowStockLoader.getNetflowStock("mock")).thenReturn(detachedNetflowStock);
+
+        scheduledUpdater.updateStocksData();
+
+        verify(detachedNetflowStock).setId(2L);
         verify(entityManager).merge(detachedNetflowStock);
 
     }

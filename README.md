@@ -36,6 +36,5 @@ Monitoring uses Netflow uses Spring Boot built-in Actuator. By default Netflow e
 
 #TODO
  * check CRON expressions
- * scheduled updates stats, try/catch block on updates failures
  * logging
  * security of stats url

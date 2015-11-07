@@ -45,10 +45,19 @@ public class ScheduledUpdater {
 
     @Transactional(Transactional.TxType.REQUIRES_NEW)
     public void updateStock(long id, String symbol) {
-        logger.info("updating stock: " + symbol);
-        NetflowStock detachedNetflowStock = netflowStockLoader.getNetflowStock(symbol);
-        detachedNetflowStock.setId(id);
-        entityManager.merge(detachedNetflowStock);
+
+        try {
+
+            logger.info("updating stock: " + symbol);
+            NetflowStock detachedNetflowStock = netflowStockLoader.getNetflowStock(symbol);
+            detachedNetflowStock.setId(id);
+            entityManager.merge(detachedNetflowStock);
+
+        } catch (Exception e) {
+            String message = "Failed updating stock '" + symbol + "'";
+            logger.error(message, e);
+        }
+
     }
 
 
