@@ -3,22 +3,22 @@ package com.netflow.stocks.provider.yahoo.data;
 import com.netflow.stocks.data.NetflowStock;
 import com.netflow.stocks.statistics.Provider;
 import com.netflow.stocks.statistics.StatsService;
-import org.fest.assertions.api.Assertions;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.rules.ExpectedException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.web.client.RestTemplate;
 
 import static org.fest.assertions.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@RunWith(PowerMockRunner.class)
 public class YahooStocksDaoTest {
 
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
     @InjectMocks
     private YahooStocksDao yahooStocksDao;
     @Mock
@@ -48,4 +48,67 @@ public class YahooStocksDaoTest {
         verify(statsService).logSuccess(Provider.YAHOO_DATA, 301);
     }
 
+    @Test
+    public void testGetStockBySymbolWithNullQuery() throws Exception {
+
+        when(yahooRestTemplate.getForObject(any(String.class), eq(YahooFinanceResponse.class)))
+                .thenReturn(new YahooFinanceResponse());
+
+        expectedException.expect(NullPointerException.class);
+        expectedException.expectMessage("Stock 'AAPL' request results invalid, null response query");
+
+        yahooStocksDao.getStockBySymbol("AAPL");
+
+    }
+
+    @Test
+    public void testGetStockBySymbolWithNullResult() throws Exception {
+
+        YahooFinanceResponse yahooFinanceResponse = new YahooFinanceResponse();
+        yahooFinanceResponse.setQuery(new YahooQuery());
+        when(yahooRestTemplate.getForObject(any(String.class), eq(YahooFinanceResponse.class)))
+                .thenReturn(yahooFinanceResponse);
+
+        expectedException.expect(NullPointerException.class);
+        expectedException.expectMessage("Stock 'AAPL' request results invalid, null results");
+        yahooStocksDao.getStockBySymbol("AAPL");
+
+    }
+
+    @Test
+    public void testGetStockBySymbolWithNullQuote() throws Exception {
+
+        YahooFinanceResponse yahooFinanceResponse = new YahooFinanceResponse();
+        YahooQuery yahooQuery = new YahooQuery();
+        yahooFinanceResponse.setQuery(yahooQuery);
+        yahooQuery.setResults(new YahooResults());
+
+        when(yahooRestTemplate.getForObject(any(String.class), eq(YahooFinanceResponse.class)))
+                .thenReturn(yahooFinanceResponse);
+
+        expectedException.expect(NullPointerException.class);
+        expectedException.expectMessage("Stock 'AAPL' request results invalid, null quote");
+        yahooStocksDao.getStockBySymbol("AAPL");
+
+    }
+
+
+    @Test
+    public void testGetStockBySymbolWithNullName() throws Exception {
+
+        YahooFinanceResponse yahooFinanceResponse = new YahooFinanceResponse();
+        YahooQuery yahooQuery = new YahooQuery();
+        yahooFinanceResponse.setQuery(yahooQuery);
+        YahooResults yahooResults = new YahooResults();
+        yahooQuery.setResults(yahooResults);
+        yahooResults.setQuote(new YahooQuote());
+
+        when(yahooRestTemplate.getForObject(any(String.class), eq(YahooFinanceResponse.class)))
+                .thenReturn(yahooFinanceResponse);
+
+        expectedException.expect(NullPointerException.class);
+        expectedException.expectMessage("Stock 'AAPL' request results invalid");
+        yahooStocksDao.getStockBySymbol("AAPL");
+
+    }
 }

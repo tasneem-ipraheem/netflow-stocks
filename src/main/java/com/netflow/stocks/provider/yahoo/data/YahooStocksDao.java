@@ -5,6 +5,7 @@ import com.netflow.stocks.data.NetflowStock;
 import com.netflow.stocks.provider.yahoo.YqlQuery;
 import com.netflow.stocks.statistics.Provider;
 import com.netflow.stocks.statistics.StatsService;
+import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
@@ -60,9 +61,18 @@ public class YahooStocksDao {
     }
 
     private void validateResponse(String stockSymbol, YahooFinanceResponse yahooFinanceResponse) {
+
         YahooQuery yahooQuery = yahooFinanceResponse.getQuery();
+        Preconditions.checkNotNull(yahooQuery, "Stock '" + stockSymbol + "' request results invalid, null response query");
+
         YahooResults results = yahooQuery.getResults();
-        Preconditions.checkNotNull(results, "Stock '" + stockSymbol + "' request results invalid");
+        Preconditions.checkNotNull(results, "Stock '" + stockSymbol + "' request results invalid, null results");
+
+        YahooQuote yahooQuote = results.getQuote();
+        Preconditions.checkNotNull(yahooQuote, "Stock '" + stockSymbol + "' request results invalid, null quote");
+
+        Preconditions.checkNotNull(yahooQuote.getName(), "Stock '" + stockSymbol + "' request results invalid");
+
     }
 
 
