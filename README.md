@@ -3,7 +3,7 @@
 ## What does is do?
  1. **Exposes stock quotes** data via REST service in JSON. Service loads stocks data from local DB or populates it 
  from 'Yahoo Finance' if requested stock is unknown. <br/> 
- 2. **Updates stock quotes** data daily using scheduled process to collect data from 'Yahoo Finance'.
+ 2. **Updates stock quotes** data every 15 minutes using scheduled process to collect data from 'Yahoo Finance'.
   
 ## How to use it?
  - Stock symbol lookup can be retrieved using ```<HOST>/stocks/lookup/<SEARCH_NAME>``` GET request.
@@ -40,5 +40,4 @@ Monitoring uses Netflow uses Spring Boot built-in Actuator. By default Netflow e
 Logs can be found in ```<NETFLOW_APP_DIRECTORY>/netflow-stocks.log``` and logging level customised using ```application.properties```.
 
 #TODO
- * check CRON expressions
  * security of stats url

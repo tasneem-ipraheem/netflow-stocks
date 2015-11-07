@@ -7,7 +7,7 @@ spring.datasource.username=<USER>
 spring.datasource.password=<PASSWORD>
 spring.datasource.driver-class-name=com.mysql.jdbc.Driver
 
-netflow.stocks.scheduler.cron=0/10 * * * * *
+netflow.stocks.scheduler.cron=0 0/15 * * * *
 netflow.stocks.lookup.retry.timeout.milliseconds=500
 netflow.stocks.lookup.retry.times=10
 
