@@ -71,7 +71,7 @@ public class StocksApiIT extends BaseIntegrationTest {
         Resource expectedResponse = new ClassPathResource("responses/netflow/data/gold_etf_details.json");
         String expectedResponseString = Files.toString(expectedResponse.getFile(), Charset.defaultCharset());
 
-        base = new URL("http://localhost:" + port + "/stocks/PHAG.L");
+        base = new URL("http://localhost:" + port + "/stocks/stock/PHAG.L");
         ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
 
         String responseString = response.getBody();
@@ -92,7 +92,7 @@ public class StocksApiIT extends BaseIntegrationTest {
         Resource expectedResponse = new ClassPathResource("responses/netflow/data/mocked_stock_details.json");
         String expectedResponseString = Files.toString(expectedResponse.getFile(), Charset.defaultCharset());
 
-        base = new URL("http://localhost:" + port + "/stocks/MOCK");
+        base = new URL("http://localhost:" + port + "/stocks/stock/MOCK");
         ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
 
         String responseString = response.getBody();
@@ -109,7 +109,7 @@ public class StocksApiIT extends BaseIntegrationTest {
         when(yahooRestTemplate.getForObject(any(String.class), eq(YahooFinanceResponse.class)))
                 .thenReturn(YahooFinanceResponseStubs.stubYahooResponseWithQuoteUnknown("UNK"));
 
-        base = new URL("http://localhost:" + port + "/stocks/UNK");
+        base = new URL("http://localhost:" + port + "/stocks/stock/UNK");
         ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);

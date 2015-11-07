@@ -9,7 +9,7 @@ import java.util.Collection;
 public interface StocksApi {
 
     @GET
-    @Path("/{stockId}")
+    @Path("/stock/{stockId}")
     @Encoded
     @Produces(MediaType.APPLICATION_JSON)
     StockDto getStockBySymbol(@PathParam("stockId") String stockId);
