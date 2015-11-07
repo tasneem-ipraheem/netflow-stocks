@@ -10,3 +10,6 @@ spring.datasource.driver-class-name=com.mysql.jdbc.Driver
 netflow.stocks.scheduler.cron=0/10 * * * * *
 netflow.stocks.lookup.retry.timeout.milliseconds=500
 netflow.stocks.lookup.retry.times=10
+
+logging.file=netflow-stocks.log
+logging.level.com.netflow.stocks=DEBUG
