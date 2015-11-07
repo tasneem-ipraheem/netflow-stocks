@@ -15,6 +15,7 @@ import com.netflow.stocks.provider.yahoo.data.YahooFinanceResponseStubs;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -84,10 +85,12 @@ public class StocksApiIT extends BaseIntegrationTest {
     @Test
     public void getStockFromYahooFinance() throws Exception {
 
+        ArgumentCaptor<String> queryCaptor = ArgumentCaptor.forClass(String.class);
+        when(yahooRestTemplate.getForObject(queryCaptor.capture(), eq(YahooFinanceResponse.class)))
+                .thenReturn(YahooFinanceResponseStubs.stubYahooResponseWithQuoteKnown("MOCK"));
+
         Resource expectedResponse = new ClassPathResource("responses/netflow/data/mocked_stock_details.json");
         String expectedResponseString = Files.toString(expectedResponse.getFile(), Charset.defaultCharset());
-        when(yahooRestTemplate.getForObject(any(String.class), eq(YahooFinanceResponse.class)))
-                .thenReturn(YahooFinanceResponseStubs.stubYahooResponseWithQuoteKnown("MOCK"));
 
         base = new URL("http://localhost:" + port + "/stocks/MOCK");
         ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
@@ -96,6 +99,7 @@ public class StocksApiIT extends BaseIntegrationTest {
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         JSONAssert.assertEquals(expectedResponseString, responseString, true);
+        assertThat(queryCaptor.getValue()).contains("from yahoo.finance.quotes where symbol = \"MOCK\"");
 
     }
 
@@ -116,20 +120,45 @@ public class StocksApiIT extends BaseIntegrationTest {
     @Test
     public void lookupSymbol() throws Exception {
 
-        Resource expectedResponse = new ClassPathResource("responses/netflow/lookup/lookup_ed.json");
-        String expectedResponseString = Files.toString(expectedResponse.getFile(), Charset.defaultCharset());
-        when(yahooLookupRestTemplate.getForObject(any(String.class), eq(YahooLookupQueryResponse.class)))
+        ArgumentCaptor<String> queryCaptor = ArgumentCaptor.forClass(String.class);
+        when(yahooLookupRestTemplate.getForObject(queryCaptor.capture(), eq(YahooLookupQueryResponse.class)))
                 .thenReturn(YahooLookupQueryResponseStubs.stubYahooLookupResponse("ed", "Ed Inc."));
 
-        base = new URL("http://localhost:" + port + "/stocks/lookup/ed");
+        Resource expectedResponse = new ClassPathResource("responses/netflow/lookup/lookup_ed.json");
+        String expectedResponseString = Files.toString(expectedResponse.getFile(), Charset.defaultCharset());
+
+        base = new URL("http://localhost:" + port + "/stocks/lookup?q=ed");
         ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
 
         String responseString = response.getBody();
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         JSONAssert.assertEquals(expectedResponseString, responseString, true);
+        assertThat(queryCaptor.getValue()).contains("http://finance.yahoo.com/lookup?s=ed");
 
     }
+
+    @Test
+    public void lookupSymbolWithSpace() throws Exception {
+
+        ArgumentCaptor<String> queryCaptor = ArgumentCaptor.forClass(String.class);
+        when(yahooLookupRestTemplate.getForObject(queryCaptor.capture(), eq(YahooLookupQueryResponse.class)))
+                .thenReturn(YahooLookupQueryResponseStubs.stubYahooLookupResponseEmpty());
+
+        Resource expectedResponse = new ClassPathResource("responses/netflow/lookup/lookup_empty.json");
+        String expectedResponseString = Files.toString(expectedResponse.getFile(), Charset.defaultCharset());
+
+        base = new URL("http://localhost:" + port + "/stocks/lookup?q=ed inc");
+        ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
+
+        String responseString = response.getBody();
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        JSONAssert.assertEquals(expectedResponseString, responseString, true);
+        assertThat(queryCaptor.getValue()).contains("http://finance.yahoo.com/lookup?s=ed%20inc");
+
+    }
+
 
 
 }

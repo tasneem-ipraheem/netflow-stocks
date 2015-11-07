@@ -25,8 +25,8 @@ public class StocksService implements StocksApi {
     }
 
     @Override
-    public Collection<LookupResultDto> lookupSymbolByName(String name) {
-        Collection<LookupResultDto> lookupResults = lookupService.lookupSymbolByName(name);
+    public Collection<LookupResultDto> lookupSymbolByName(String nameQuery) {
+        Collection<LookupResultDto> lookupResults = lookupService.lookupSymbolByName(nameQuery);
         return lookupResults;
     }
 }

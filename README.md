@@ -35,9 +35,7 @@ Monitoring uses Netflow uses Spring Boot built-in Actuator. By default Netflow e
 ```localhost:8081/[autoconfig|beans|configprops|dump|env|health|info|metrics|mappings|shutdown|trace|jolokia]```
 
 #TODO
- * DoS, XSS, DB
  * check CRON expressions
- * edge case for lookup input with spaces
  * scheduled updates stats, try/catch block on updates failures
  * logging
  * security of stats url

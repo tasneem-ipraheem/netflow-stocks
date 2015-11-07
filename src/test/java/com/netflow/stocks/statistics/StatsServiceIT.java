@@ -75,7 +75,7 @@ public class StatsServiceIT extends BaseIntegrationTest {
     private void simulateLookup() throws MalformedURLException {
         when(yahooLookupRestTemplate.getForObject(any(String.class), eq(YahooLookupQueryResponse.class)))
                 .thenReturn(YahooLookupQueryResponseStubs.stubYahooLookupResponse("ed", "Ed Inc."));
-        base = new URL("http://localhost:" + port + "/stocks/lookup/ed");
+        base = new URL("http://localhost:" + port + "/stocks/lookup?q=ed");
         template.getForEntity(base.toString(), String.class);
     }
 

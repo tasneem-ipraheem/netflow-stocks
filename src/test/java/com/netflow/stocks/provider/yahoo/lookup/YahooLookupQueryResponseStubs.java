@@ -8,6 +8,18 @@ public class YahooLookupQueryResponseStubs {
     private YahooLookupQueryResponseStubs() {
     }
 
+    public static YahooLookupQueryResponse stubYahooLookupResponseEmpty() {
+
+        Diagnostics diagnostics = new Diagnostics();
+        diagnostics.setExecutionTime(101);
+
+        YahooLookupQueryResponse response = new YahooLookupQueryResponse();
+        response.setDiagnostics(diagnostics);
+
+        return response;
+
+    }
+
     public static YahooLookupQueryResponse stubYahooLookupResponse(String symbol, String name) {
 
         Diagnostics diagnostics = new Diagnostics();
