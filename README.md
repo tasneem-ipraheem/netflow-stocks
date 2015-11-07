@@ -30,14 +30,15 @@ Add properties ```-Dhttp.proxyHost=<HOST> -Dhttp.proxyPort=<PORT>```
 To enable use ```-Pspring-loaded``` profile when starting application from maven. 
 When running application from sources, IDE recompiled classes will be automatically re-loaded by auto-configured 'SpringLoaded'. 
 
-## Monitoring && Logging
+## Monitoring & Logging
+
+### Logging
+Logs can be found in ```<NETFLOW_APP_DIRECTORY>/netflow-stocks.log``` and logging level customised using ```application.properties```.
 
 ### Monitoring
 Monitoring uses Netflow uses Spring Boot built-in Actuator. By default Netflow exposes statistics on localhost port 8081, not accessed remotely. <br/> 
 ```localhost:8081/[autoconfig|beans|configprops|dump|env|health|info|metrics|mappings|shutdown|trace|jolokia]```
 
-### Logging
-Logs can be found in ```<NETFLOW_APP_DIRECTORY>/netflow-stocks.log``` and logging level customised using ```application.properties```.
 
 #TODO
  * security of stats url
