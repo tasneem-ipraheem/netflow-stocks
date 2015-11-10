@@ -7,7 +7,6 @@ import com.netflow.stocks.BaseIntegrationTest;
 import com.netflow.stocks.provider.yahoo.lookup.YahooLookupQueryResponse;
 import com.netflow.stocks.provider.yahoo.lookup.YahooLookupQueryResponseStubs;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -20,7 +19,6 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.client.RestTemplate;
@@ -37,7 +35,7 @@ import static org.mockito.Mockito.when;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
-@IntegrationTest({"server.port=0"})
+@IntegrationTest({"server.port=0", "netflow.stokcs.security.enable=false"})
 public class StatsServiceIT extends BaseIntegrationTest {
 
     @Autowired
@@ -57,9 +55,7 @@ public class StatsServiceIT extends BaseIntegrationTest {
         statsRepo.clear();
     }
 
-    @Ignore
     @Test
-    @WithMockUser(username = "admin", password = "secret", roles = {"USER"})
     public void getStatsWithAuthenticatedAdminUser() throws Exception {
 
         simulateLookup();
@@ -77,17 +73,6 @@ public class StatsServiceIT extends BaseIntegrationTest {
 
     }
 
-    @Test
-    @WithMockUser(username = "user", password = "", roles = {"USER"})
-    public void getStatsWithNonAdminUser() throws Exception {
-
-        base = new URL("http://localhost:" + port + "/stocks/stats");
-        ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
-
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.FOUND);
-        assertThat(response.getHeaders().getFirst("Location")).endsWith("/login");
-
-    }
 
     private void simulateLookup() throws MalformedURLException {
         when(yahooLookupRestTemplate.getForObject(any(String.class), eq(YahooLookupQueryResponse.class)))
