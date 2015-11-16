@@ -1,5 +1,7 @@
 package com.netflow.stocks.statistics;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -9,6 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.Collection;
 
+@Api(value = "usage-stats", description = "NetFlow statistics", produces = "application/json")
 @Path("/")
 @Service
 public class StatsService {
@@ -16,6 +19,7 @@ public class StatsService {
     @Resource
     private StatsRepo statsRepo;
 
+    @ApiOperation(value = "Get NetFlow statistics")
     @GET
     @Path("/stats")
     @Produces(MediaType.APPLICATION_JSON)

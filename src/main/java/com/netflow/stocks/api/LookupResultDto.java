@@ -1,7 +1,10 @@
 package com.netflow.stocks.api;
 
+import io.swagger.annotations.ApiModel;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
+@ApiModel(value="LookupResultDto")
 @XmlRootElement(name = "lookupResult")
 public class LookupResultDto {
 

@@ -1,9 +1,12 @@
 package com.netflow.stocks.api;
 
+import io.swagger.annotations.ApiModel;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@ApiModel(value="StockDto")
 @XmlRootElement (name = "stock")
 public class StockDto {
 

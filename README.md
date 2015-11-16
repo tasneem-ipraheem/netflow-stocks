@@ -4,10 +4,10 @@
  1. **Exposes stock quotes** data via REST service in JSON. Service loads stocks data from local DB or populates it 
  from 'Yahoo Finance' if requested stock is unknown. <br/> 
  2. **Updates stock quotes** data every 15 minutes using scheduled process to collect data from 'Yahoo Finance'.
+ 3. **Collects usage statistics** and exposes collected data in JSON format.
   
 ## How to use it?
- - Stock symbol lookup can be retrieved using ```http://<HOST>/stocks/lookup?q=<SEARCH_NAME>``` GET request.
- - Stock details can be retrieved using ```http://<HOST>/stocks/stock/<STOCK_SYMBOL>``` GET request.
+REST API is exposed in ```http://<HOST>/swagger/index.html```
 
 ## Running application & Configuration
 
@@ -35,9 +35,8 @@ When running application from sources, IDE recompiled classes will be automatica
 Logs can be found in ```<NETFLOW_APP_DIRECTORY>/netflow-stocks.log``` and logging level customised using ```application.properties```.
 
 ### Monitoring & Statistics
-Spring Boot built-in Actuator monitoring can be accessed bu URL: 
+Spring Boot built-in Actuator monitoring can be accessed by URL: 
 ```http://<HOST>/manage/[autoconfig|beans|configprops|dump|env|health|info|metrics|mappings|shutdown|trace|jolokia]```. <br/>
-Netflow Stocks request statistics provided in ```http://<HOST>/stocks/stats```.
 
 #Security
 Monitoring and statistics URLs are protected by default ```admin/secret``` credentials that can be overridden by 

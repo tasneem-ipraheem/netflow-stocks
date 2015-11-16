@@ -1,7 +1,9 @@
 package com.netflow.stocks.statistics;
 
+import io.swagger.annotations.ApiModel;
 import javax.xml.bind.annotation.XmlRootElement;
 
+@ApiModel(value="ProviderStats")
 @XmlRootElement
 public class ProviderStats {
 
