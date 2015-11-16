@@ -24,8 +24,6 @@ public class JerseyConfig extends ResourceConfig {
         BeanConfig beanConfig = new BeanConfig();
         beanConfig.setVersion("1.0.0");
         beanConfig.setTitle("NetFlow Stocks API");
-        beanConfig.setSchemes(new String[]{"http"});
-        beanConfig.setHost("localhost:80");
         beanConfig.setBasePath("/stocks");
         beanConfig.setResourcePackage("com.netflow.stocks");
         beanConfig.setPrettyPrint(true);
